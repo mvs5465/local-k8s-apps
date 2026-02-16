@@ -69,8 +69,8 @@ spec:
 
         dashboards:
           default:
-            k3s-monitoring:
-              gnetId: 19972
+            kubernetes-monitoring:
+              gnetId: 12740
               revision: 1
               datasource: Prometheus
 
