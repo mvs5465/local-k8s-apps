@@ -48,6 +48,14 @@ spec:
       selfHeal: true
 ```
 
+## Enabling Optional Applications
+
+**Fileserver** (currently disabled):
+- File: `manifests/fileserver-app.yaml.disabled`
+- To enable: Rename to `manifests/fileserver-app.yaml`
+- Requirements: `/tmp/files` directory must exist on k3s node
+- Setup: `colima ssh mkdir -p /tmp/files`
+
 ## Two-Repo Architecture
 
 This setup prevents the "chicken-and-egg" problem:
