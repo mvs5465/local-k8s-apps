@@ -206,26 +206,6 @@ data:
             </a>
           </div>
 
-          <!-- Documentation -->
-          <div class="service-card">
-            <a id="docs-link" href="http://localhost:7777" target="_blank">
-              <div class="service-icon">📚</div>
-              <div class="service-title">Documentation</div>
-              <div class="service-description">Interactive guides and setup instructions.</div>
-              <div class="service-link">Open Docs</div>
-            </a>
-          </div>
-
-          <!-- File Server -->
-          <div class="service-card">
-            <a id="fileserver-link" href="http://localhost:30080" target="_blank">
-              <div class="service-icon">📁</div>
-              <div class="service-title">File Server</div>
-              <div class="service-description">Browse and download files from /tmp/files.</div>
-              <div class="service-link">Open Files</div>
-            </a>
-          </div>
-
         </div>
 
         <footer>
@@ -243,8 +223,6 @@ data:
           document.getElementById('grafana-link').href = 'http://' + host + ':3000';
           document.getElementById('prometheus-link').href = 'http://' + host + ':9090';
           document.getElementById('api-link').href = 'https://' + host + ':55152';
-          document.getElementById('docs-link').href = 'http://' + host + ':7777';
-          document.getElementById('fileserver-link').href = 'http://' + host + ':30080';
         });
       </script>
     </body>
