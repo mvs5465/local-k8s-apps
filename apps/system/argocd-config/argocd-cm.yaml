@@ -7,5 +7,4 @@ metadata:
     app.kubernetes.io/name: argocd-cm
     app.kubernetes.io/part-of: argocd
 data:
-  # Disable auth for local development
   server.disable.auth: "true"
