@@ -69,18 +69,6 @@ spec:
 
         dashboards:
           default:
-            kubernetes-cluster:
-              gnetId: 7249
-              revision: 1
-              datasource: Prometheus
-            kubernetes-pods:
-              gnetId: 6417
-              revision: 1
-              datasource: Prometheus
-            cluster-monitoring:
-              gnetId: 8588
-              revision: 1
-              datasource: Prometheus
             k3s-monitoring:
               gnetId: 19972
               revision: 1
