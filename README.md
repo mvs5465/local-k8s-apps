@@ -5,47 +5,65 @@ ArgoCD Application definitions for the local K8s cluster. This repo is watched b
 ## Structure
 
 ```
-system/
-├── grafana-app.yaml       # System monitoring UI
-└── prometheus-app.yaml    # System metrics collection
-
-apps/
-├── dashboard-ui-app.yaml  # Local cluster dashboard
-└── fileserver-app.yaml    # Static file server
+manifests/
+├── kustomization.yaml     # Root kustomization that includes all apps
+├── dashboard-ui/          # Dashboard UI app
+│   ├── dashboard-ui-app.yaml
+│   ├── dashboard-ui.yaml
+│   └── kustomization.yaml
+├── grafana/               # Grafana metrics UI
+│   ├── grafana-app.yaml
+│   └── kustomization.yaml
+├── prometheus/            # Prometheus metrics
+│   ├── prometheus-app.yaml
+│   └── kustomization.yaml
+└── fileserver/            # Static file server (optional)
+    ├── fileserver-app.yaml
+    ├── fileserver.yaml
+    └── kustomization.yaml
 ```
 
 ## How It Works
 
 - **Repo**: `local-k8s-argocd` contains ArgoCD infrastructure and root applications
-- **This repo** (`local-k8s-apps`) contains Application definitions
-- Root applications in `local-k8s-argocd` point here and auto-discover applications
-- ArgoCD watches `main` branch in this repo
+- **This repo** (`local-k8s-apps`) contains application definitions organized by app
+- Root application in `local-k8s-argocd` points to `manifests/`
+- ArgoCD watches `main` branch and syncs all apps via Kustomize
+- Each app is in its own subdirectory with its own `kustomization.yaml`
+- Root `manifests/kustomization.yaml` includes all app subdirectories
+
+## Enable/Disable Apps
+
+Apps are enabled/disabled by modifying their `kustomization.yaml`:
+
+**Fileserver (currently disabled by default):**
+- Edit `manifests/fileserver/kustomization.yaml`
+- Uncomment the `- fileserver.yaml` line in resources
+- Ensure `/tmp/files` directory exists on k3s node: `colima ssh mkdir -p /tmp/files`
+
+To disable other apps, remove or comment out their entries in `manifests/kustomization.yaml`
 
 ## Adding New Applications
 
-1. Create `<app-name>-app.yaml` in either `system/` or `apps/`
-2. Push to main branch
-3. ArgoCD auto-discovers and deploys
+1. Create new subdirectory: `manifests/<app-name>/`
+2. Add application manifests (`<app-name>-app.yaml`, etc.)
+3. Create `kustomization.yaml` listing the resources
+4. Add reference to root `manifests/kustomization.yaml` under resources
+5. Push to main branch
 
 Example structure:
 ```yaml
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: my-app
-spec:
-  project: cluster
-  source:
-    repoURL: <your-app-repo>
-    targetRevision: main
-    path: manifests
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: default
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+# manifests/<app-name>/kustomization.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - <app-name>-app.yaml
+  - <app-name>.yaml  # if separate manifest
+
+# manifests/kustomization.yaml (add your app)
+resources:
+  - <app-name>
 ```
 
 ## Two-Repo Architecture
