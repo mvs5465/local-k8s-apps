@@ -1,8 +1,0 @@
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-
-resources:
-  - fileserver-app.yaml
-  # TODO: Uncomment below to enable fileserver deployment
-  # Requires /tmp/files directory to exist on the k3s node (create with: colima ssh mkdir -p /tmp/files)
-  # - fileserver.yaml
