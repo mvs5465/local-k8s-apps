@@ -9,22 +9,9 @@ spec:
   project: cluster
 
   source:
-    repoURL: https://argoproj.github.io/argo-helm
-    chart: argo-cd
-    targetRevision: "7.6.4"
-    helm:
-      values: |
-        configs:
-          params:
-            server.disable.auth: "true"
-        server:
-          ingress:
-            enabled: true
-            ingressClassName: nginx
-            hosts:
-              - argocd.local
-            paths:
-              - /
+    repoURL: https://github.com/mvs5465/local-k8s-apps
+    targetRevision: main
+    path: apps/system/argocd-config
 
   destination:
     server: https://kubernetes.default.svc
