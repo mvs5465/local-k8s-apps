@@ -26,6 +26,13 @@ spec:
             size: 2Gi
           service:
             type: ClusterIP
+          ingress:
+            enabled: true
+            ingressClassName: nginx
+            hosts:
+              - prometheus.local
+            path: /
+            pathType: Prefix
 
         pushgateway:
           enabled: false
