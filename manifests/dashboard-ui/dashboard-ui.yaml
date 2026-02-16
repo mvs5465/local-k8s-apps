@@ -168,7 +168,7 @@ data:
         <div class="services-grid">
           <!-- ArgoCD -->
           <div class="service-card">
-            <a id="argocd-link" href="https://localhost:8080" target="_blank">
+            <a href="https://argocd.local" target="_blank">
               <div class="service-icon">🚀</div>
               <div class="service-title">ArgoCD</div>
               <div class="service-description">GitOps continuous deployment. Manage applications via git.</div>
@@ -178,7 +178,7 @@ data:
 
           <!-- Grafana -->
           <div class="service-card">
-            <a id="grafana-link" href="http://localhost:3000" target="_blank">
+            <a href="http://grafana.local" target="_blank">
               <div class="service-icon">📊</div>
               <div class="service-title">Grafana</div>
               <div class="service-description">Visualize cluster metrics and create custom dashboards.</div>
@@ -188,7 +188,7 @@ data:
 
           <!-- Prometheus -->
           <div class="service-card">
-            <a id="prometheus-link" href="http://localhost:9090" target="_blank">
+            <a href="http://prometheus.local" target="_blank">
               <div class="service-icon">📈</div>
               <div class="service-title">Prometheus</div>
               <div class="service-description">Time-series database collecting cluster metrics.</div>
@@ -204,16 +204,6 @@ data:
         </footer>
       </div>
 
-      <script>
-        // Update links to use the same host as the current page with port-based routing
-        window.addEventListener('DOMContentLoaded', function() {
-          const host = window.location.hostname;
-
-          document.getElementById('argocd-link').href = 'https://' + host + ':8080';
-          document.getElementById('grafana-link').href = 'http://' + host + ':3000';
-          document.getElementById('prometheus-link').href = 'http://' + host + ':9090';
-        });
-      </script>
     </body>
     </html>
 
