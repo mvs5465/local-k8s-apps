@@ -196,16 +196,6 @@ data:
             </a>
           </div>
 
-          <!-- Kubernetes API -->
-          <div class="service-card">
-            <a id="api-link" href="https://localhost:55152" target="_blank">
-              <div class="service-icon">☸️</div>
-              <div class="service-title">Kubernetes API</div>
-              <div class="service-description">Direct access to K8s API server for advanced operations.</div>
-              <div class="service-link">Open API</div>
-            </a>
-          </div>
-
         </div>
 
         <footer>
@@ -222,7 +212,6 @@ data:
           document.getElementById('argocd-link').href = 'https://' + host + ':8080';
           document.getElementById('grafana-link').href = 'http://' + host + ':3000';
           document.getElementById('prometheus-link').href = 'http://' + host + ':9090';
-          document.getElementById('api-link').href = 'https://' + host + ':55152';
         });
       </script>
     </body>
