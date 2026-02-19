@@ -18,6 +18,11 @@ spec:
           repository: ghcr.io/gethomepage/homepage
           tag: latest
 
+        enableRbac: true
+
+        serviceAccount:
+          create: true
+
         env:
           - name: HOMEPAGE_ALLOWED_HOSTS
             value: "homepage.local"
@@ -48,11 +53,7 @@ spec:
                 - ArgoCD:
                     href: https://argocd.local
                     description: GitOps continuous deployment
-                    icon: argocd.png
-                - Dashboard:
-                    href: http://dashboard.local
-                    description: Custom service dashboard
-                    icon: kubernetes-dashboard.png
+                    icon: argo-cd.png
             - Monitoring:
                 - Grafana:
                     href: http://grafana.local
@@ -62,10 +63,6 @@ spec:
                     href: http://prometheus.local
                     description: Time-series metrics database
                     icon: prometheus.png
-                - Loki:
-                    href: http://loki.local
-                    description: Log aggregation
-                    icon: loki.png
                 - Uptime Kuma:
                     href: http://kuma.local
                     description: Service uptime monitoring
