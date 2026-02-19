@@ -36,6 +36,11 @@ spec:
           hosts:
             - gatus.local
 
+        persistence:
+          enabled: true
+          size: 500Mi
+          mountPath: /data
+
         config:
           storage:
             type: sqlite
