@@ -61,6 +61,10 @@ spec:
               url: http://prometheus-server.monitoring.svc.cluster.local:80
               access: proxy
               isDefault: true
+            - name: Loki
+              type: loki
+              url: http://loki.monitoring.svc.cluster.local:3100
+              access: proxy
 
         dashboardProviders:
           dashboardproviders.yaml:
@@ -81,6 +85,10 @@ spec:
               gnetId: 12740
               revision: 1
               datasource: Prometheus
+            loki-dashboard:
+              gnetId: 13186
+              revision: 1
+              datasource: Loki
 
   destination:
     server: https://kubernetes.default.svc
