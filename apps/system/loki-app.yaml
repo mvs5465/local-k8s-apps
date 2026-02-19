@@ -51,10 +51,9 @@ spec:
           enabled: true
           ingressClassName: nginx
           hosts:
-            - host: loki.local
-              paths:
-                - path: /
-                  pathType: Prefix
+            - loki.local
+          paths:
+            - /
 
         gateway:
           enabled: false
