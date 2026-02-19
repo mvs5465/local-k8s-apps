@@ -17,6 +17,13 @@ spec:
         controller:
           service:
             type: LoadBalancer
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 128Mi
 
   destination:
     server: https://kubernetes.default.svc
