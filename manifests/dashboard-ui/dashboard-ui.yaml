@@ -196,11 +196,21 @@ data:
             </a>
           </div>
 
+          <!-- Loki -->
+          <div class="service-card">
+            <a href="http://loki.local" target="_blank">
+              <div class="service-icon">📋</div>
+              <div class="service-title">Loki</div>
+              <div class="service-description">Log aggregation. Query pod logs from Grafana Explore.</div>
+              <div class="service-link">Open Loki</div>
+            </a>
+          </div>
+
         </div>
 
         <footer>
           <p>Local Kubernetes Development Environment • Running on Colima with K3s</p>
-          <p style="margin-top: 10px; color: #555;">Powered by ArgoCD, Prometheus, and Grafana</p>
+          <p style="margin-top: 10px; color: #555;">Powered by ArgoCD, Prometheus, Grafana, and Loki</p>
         </footer>
       </div>
 
