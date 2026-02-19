@@ -57,31 +57,31 @@ spec:
                 - "[STATUS] == 200"
 
             - name: grafana
-              url: http://grafana.monitoring.svc.cluster.local
+              url: http://grafana.monitoring.svc.cluster.local/api/health
               interval: 60s
               conditions:
                 - "[STATUS] == 200"
 
             - name: loki
-              url: http://loki.monitoring.svc.cluster.local
+              url: http://loki.monitoring.svc.cluster.local:3100/ready
               interval: 60s
               conditions:
                 - "[STATUS] == 200"
 
             - name: homepage
-              url: http://homepage.services.svc.cluster.local
+              url: http://homepage.services.svc.cluster.local:3000
               interval: 60s
               conditions:
                 - "[STATUS] == 200"
 
             - name: argocd
-              url: https://argocd.argocd.svc.cluster.local
+              url: http://argocd-server.argocd.svc.cluster.local/healthz
               interval: 60s
               conditions:
                 - "[STATUS] == 200 || [STATUS] == 307"
 
             - name: gatus
-              url: https://gatus.services.svc.cluster.local
+              url: http://gatus.services.svc.cluster.local/health
               interval: 60s
               conditions:
                 - "[STATUS] == 200 || [STATUS] == 307"
