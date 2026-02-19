@@ -30,12 +30,11 @@ spec:
 
         ingress:
           enabled: true
-          className: nginx
+          ingressClassName: nginx
+          path: /
+          pathType: Prefix
           hosts:
-            - host: gatus.local
-              paths:
-                - path: /
-                  pathType: Prefix
+            - gatus.local
 
         config:
           storage:
