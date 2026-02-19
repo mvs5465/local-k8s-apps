@@ -78,13 +78,13 @@ spec:
               url: http://argocd-server.argocd.svc.cluster.local/healthz
               interval: 60s
               conditions:
-                - "[STATUS] == 200 || [STATUS] == 307"
+                - "[STATUS] == 200"
 
             - name: gatus
               url: http://gatus.services.svc.cluster.local/health
               interval: 60s
               conditions:
-                - "[STATUS] == 200 || [STATUS] == 307"
+                - "[STATUS] == 200"
 
   destination:
     server: https://kubernetes.default.svc
