@@ -18,6 +18,10 @@ spec:
           repository: ghcr.io/gethomepage/homepage
           tag: latest
 
+        env:
+          - name: HOMEPAGE_ALLOWED_HOSTS
+            value: "homepage.local"
+
         resources:
           requests:
             cpu: 50m
