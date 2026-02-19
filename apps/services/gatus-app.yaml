@@ -48,7 +48,6 @@ spec:
 
           ui:
             title: Service Status
-            logo: ""
 
           endpoints:
             - name: prometheus
