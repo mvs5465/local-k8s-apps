@@ -51,31 +51,37 @@ spec:
 
           endpoints:
             - name: prometheus
-              url: http://prometheus.monitoring.svc.cluster.local:9090
+              url: http://prometheus-server.monitoring.svc.cluster.local
               interval: 60s
               conditions:
                 - "[STATUS] == 200"
 
             - name: grafana
-              url: http://grafana.monitoring.svc.cluster.local:3000
+              url: http://grafana.monitoring.svc.cluster.local
               interval: 60s
               conditions:
                 - "[STATUS] == 200"
 
             - name: loki
-              url: http://loki.monitoring.svc.cluster.local:3100
+              url: http://loki.monitoring.svc.cluster.local
               interval: 60s
               conditions:
                 - "[STATUS] == 200"
 
             - name: homepage
-              url: http://homepage.local
+              url: http://homepage.services.svc.cluster.local
               interval: 60s
               conditions:
                 - "[STATUS] == 200"
 
             - name: argocd
-              url: https://argocd.local
+              url: https://argocd.argocd.svc.cluster.local
+              interval: 60s
+              conditions:
+                - "[STATUS] == 200 || [STATUS] == 307"
+
+            - name: gatus
+              url: https://gatus.services.svc.cluster.local
               interval: 60s
               conditions:
                 - "[STATUS] == 200 || [STATUS] == 307"
