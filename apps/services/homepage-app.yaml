@@ -63,10 +63,10 @@ spec:
                     href: http://prometheus.local
                     description: Time-series metrics database
                     icon: prometheus.png
-                - Uptime Kuma:
-                    href: http://kuma.local
+                - Gatus:
+                    href: http://gatus.local
                     description: Service uptime monitoring
-                    icon: uptime-kuma.png
+                    icon: gatus.png
 
           widgets:
             - kubernetes:

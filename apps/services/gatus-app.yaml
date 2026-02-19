@@ -1,0 +1,89 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gatus
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: cluster
+  source:
+    repoURL: https://github.com/TwiN/gatus
+    targetRevision: HEAD
+    path: helm/gatus
+    helm:
+      releaseName: gatus
+      values: |
+        replicaCount: 1
+
+        image:
+          repository: twinproduction/gatus
+          tag: latest
+
+        resources:
+          requests:
+            cpu: 50m
+            memory: 128Mi
+          limits:
+            cpu: 200m
+            memory: 256Mi
+
+        ingress:
+          enabled: true
+          className: nginx
+          hosts:
+            - host: gatus.local
+              paths:
+                - path: /
+                  pathType: Prefix
+
+        config:
+          storage:
+            type: sqlite
+            path: /data/gatus.db
+
+          ui:
+            title: Service Status
+            logo: ""
+
+          endpoints:
+            - name: prometheus
+              url: http://prometheus.monitoring.svc.cluster.local:9090
+              interval: 60s
+              conditions:
+                - "[STATUS] == 200"
+
+            - name: grafana
+              url: http://grafana.monitoring.svc.cluster.local:3000
+              interval: 60s
+              conditions:
+                - "[STATUS] == 200"
+
+            - name: loki
+              url: http://loki.monitoring.svc.cluster.local:3100
+              interval: 60s
+              conditions:
+                - "[STATUS] == 200"
+
+            - name: homepage
+              url: http://homepage.local
+              interval: 60s
+              conditions:
+                - "[STATUS] == 200"
+
+            - name: argocd
+              url: https://argocd.local
+              interval: 60s
+              conditions:
+                - "[STATUS] == 200 || [STATUS] == 307"
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: services
+
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
