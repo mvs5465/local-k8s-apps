@@ -48,12 +48,7 @@ spec:
             size: 1Gi
 
         ingress:
-          enabled: true
-          ingressClassName: nginx
-          hosts:
-            - loki.local
-          paths:
-            - /
+          enabled: false
 
         gateway:
           enabled: false
