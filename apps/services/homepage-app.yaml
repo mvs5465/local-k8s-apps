@@ -1,0 +1,101 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: homepage
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: cluster
+  source:
+    repoURL: https://jameswynn.github.io/helm-charts
+    targetRevision: 2.1.0
+    chart: homepage
+    helm:
+      releaseName: homepage
+      values: |
+        image:
+          repository: ghcr.io/gethomepage/homepage
+          tag: latest
+
+        resources:
+          requests:
+            cpu: 50m
+            memory: 128Mi
+          limits:
+            cpu: 200m
+            memory: 256Mi
+
+        ingress:
+          main:
+            enabled: true
+            ingressClassName: nginx
+            hosts:
+              - host: homepage.local
+                paths:
+                  - path: /
+                    pathType: Prefix
+
+        config:
+          bookmarks: []
+
+          services:
+            - Infrastructure:
+                - ArgoCD:
+                    href: https://argocd.local
+                    description: GitOps continuous deployment
+                    icon: argocd.png
+                - Dashboard:
+                    href: http://dashboard.local
+                    description: Custom service dashboard
+                    icon: kubernetes-dashboard.png
+            - Monitoring:
+                - Grafana:
+                    href: http://grafana.local
+                    description: Metrics and log dashboards
+                    icon: grafana.png
+                - Prometheus:
+                    href: http://prometheus.local
+                    description: Time-series metrics database
+                    icon: prometheus.png
+                - Loki:
+                    href: http://loki.local
+                    description: Log aggregation
+                    icon: loki.png
+                - Uptime Kuma:
+                    href: http://kuma.local
+                    description: Service uptime monitoring
+                    icon: uptime-kuma.png
+
+          widgets:
+            - kubernetes:
+                cluster:
+                  show: true
+                  cpu: true
+                  memory: true
+                  showLabel: true
+                  label: "local-k8s"
+                nodes:
+                  show: true
+                  cpu: true
+                  memory: true
+                  showLabel: true
+
+          kubernetes:
+            mode: cluster
+
+          settings:
+            title: Local K8s Cluster
+            theme: dark
+            color: slate
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: services
+
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
