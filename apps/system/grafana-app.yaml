@@ -703,7 +703,7 @@ spec:
                       "targets": [
                         {
                           "datasource": { "type": "loki", "uid": "P8E80F9AEF21F6940" },
-                          "expr": "{namespace=~\".+\", namespace=~\"$namespace\", pod=~\"$pod\"} | regexp \"(?i)$level\"",
+                          "expr": "{namespace=~\".+\", namespace=~\"$namespace\", pod=~\"$pod\"} |~ \"(?i)$level\"",
                           "legendFormat": "",
                           "refId": "A"
                         }
@@ -763,7 +763,7 @@ spec:
                           { "selected": false, "text": "warn", "value": "warn" },
                           { "selected": false, "text": "info", "value": "info" },
                           { "selected": false, "text": "debug", "value": "debug" },
-                          { "selected": false, "text": ".*", "value": ".*" }
+                          { "selected": false, "text": "all", "value": "error|warn|info|debug" }
                         ],
                         "skipUrlSync": false,
                         "sort": 0,
