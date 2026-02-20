@@ -751,7 +751,7 @@ spec:
                         "label": "Pod"
                       },
                       {
-                        "current": { "selected": false, "text": "error|warn|Error|WARN", "value": "error|warn|Error|WARN" },
+                        "current": { "selected": true, "text": "error|warn|Error|WARN", "value": "error|warn|Error|WARN" },
                         "hide": 0,
                         "includeAll": false,
                         "multi": false,
@@ -765,7 +765,8 @@ spec:
                           { "selected": false, "text": ".*", "value": ".*" }
                         ],
                         "query": "",
-                        "refresh": 1,
+                        "queryValue": "",
+                        "refresh": 0,
                         "regex": "",
                         "sort": 0,
                         "type": "custom",
