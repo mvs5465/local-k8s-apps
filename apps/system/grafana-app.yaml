@@ -703,7 +703,7 @@ spec:
                       "targets": [
                         {
                           "datasource": { "type": "loki", "uid": "P8E80F9AEF21F6940" },
-                          "expr": "{namespace=~\".+\", namespace=~\"$namespace\", pod=~\"$pod\"}",
+                          "expr": "{namespace=~\".+\", namespace=~\"$namespace\", pod=~\"$pod\"} | regexp `(?i)($level)` | != \"\"",
                           "legendFormat": "",
                           "refId": "A"
                         }
@@ -749,6 +749,27 @@ spec:
                         "sort": 1,
                         "type": "query",
                         "label": "Pod"
+                      },
+                      {
+                        "current": { "selected": false, "text": "error|warn|Error|WARN", "value": "error|warn|Error|WARN" },
+                        "hide": 0,
+                        "includeAll": false,
+                        "multi": false,
+                        "name": "level",
+                        "options": [
+                          { "selected": true, "text": "error|warn|Error|WARN", "value": "error|warn|Error|WARN" },
+                          { "selected": false, "text": "error|Error|ERROR", "value": "error|Error|ERROR" },
+                          { "selected": false, "text": "warn|Warn|WARN", "value": "warn|Warn|WARN" },
+                          { "selected": false, "text": "info|Info|INFO", "value": "info|Info|INFO" },
+                          { "selected": false, "text": "debug|Debug|DEBUG", "value": "debug|Debug|DEBUG" },
+                          { "selected": false, "text": ".*", "value": ".*" }
+                        ],
+                        "query": "",
+                        "refresh": 1,
+                        "regex": "",
+                        "sort": 0,
+                        "type": "custom",
+                        "label": "Log Level"
                       }
                     ]
                   },
