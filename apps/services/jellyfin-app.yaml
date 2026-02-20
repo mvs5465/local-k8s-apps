@@ -15,6 +15,16 @@ spec:
     helm:
       releaseName: jellyfin
       values: |
+        ingress:
+          enabled: true
+          className: nginx
+          annotations: {}
+          hosts:
+            - host: jellyfin.local
+              paths:
+                - path: /
+                  pathType: Prefix
+
         extraVolumes:
           - name: tmp-files
             hostPath:
