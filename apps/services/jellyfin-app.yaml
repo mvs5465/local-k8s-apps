@@ -25,13 +25,13 @@ spec:
                 - path: /
                   pathType: Prefix
 
-        extraVolumes:
+        volumes:
           - name: tmp-files
             hostPath:
               path: /tmp/files
               type: DirectoryOrCreate
 
-        extraVolumeMounts:
+        volumeMounts:
           - name: tmp-files
             mountPath: /tmp/files
 
