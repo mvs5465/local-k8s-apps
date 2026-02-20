@@ -703,7 +703,7 @@ spec:
                       "targets": [
                         {
                           "datasource": { "type": "loki", "uid": "P8E80F9AEF21F6940" },
-                          "expr": "{namespace=~\".+\", namespace=~\"$namespace\", pod=~\"$pod\"} | regexp `(?i)($level)` | != \"\"",
+                          "expr": "{namespace=~\".+\", namespace=~\"$namespace\", pod=~\"$pod\"} | regexp \"(?i)(?P<level>$level)\"",
                           "legendFormat": "",
                           "refId": "A"
                         }
