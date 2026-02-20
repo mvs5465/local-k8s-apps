@@ -67,6 +67,11 @@ spec:
                     href: http://gatus.local
                     description: Service uptime monitoring
                     icon: gatus.png
+            - Media:
+                - Jellyfin:
+                    href: http://jellyfin.local
+                    description: Media server and streaming
+                    icon: jellyfin.png
 
           widgets:
             - kubernetes:
