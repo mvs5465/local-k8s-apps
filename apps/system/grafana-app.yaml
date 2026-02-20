@@ -613,10 +613,6 @@ spec:
                   "uid": "cluster-overview",
                   "version": 1
                 }
-            kubernetes-monitoring:
-              gnetId: 12740
-              revision: 1
-              datasource: Prometheus
             loki-dashboard:
               gnetId: 13186
               revision: 1
