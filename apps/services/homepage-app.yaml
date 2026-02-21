@@ -25,7 +25,7 @@ spec:
 
         env:
           - name: HOMEPAGE_ALLOWED_HOSTS
-            value: "homepage.local"
+            value: "homepage.lan"
 
         resources:
           requests:
@@ -40,7 +40,7 @@ spec:
             enabled: true
             ingressClassName: nginx
             hosts:
-              - host: homepage.local
+              - host: homepage.lan
                 paths:
                   - path: /
                     pathType: Prefix
@@ -51,25 +51,25 @@ spec:
           services:
             - Infrastructure:
                 - ArgoCD:
-                    href: https://argocd.local
+                    href: https://argocd.lan
                     description: GitOps continuous deployment
                     icon: argo-cd.png
             - Monitoring:
                 - Grafana:
-                    href: http://grafana.local
+                    href: http://grafana.lan
                     description: Metrics and log dashboards
                     icon: grafana.png
                 - Prometheus:
-                    href: http://prometheus.local
+                    href: http://prometheus.lan
                     description: Time-series metrics database
                     icon: prometheus.png
                 - Gatus:
-                    href: http://gatus.local
+                    href: http://gatus.lan
                     description: Service uptime monitoring
                     icon: gatus.png
             - Media:
                 - Jellyfin:
-                    href: http://jellyfin.local
+                    href: http://jellyfin.lan
                     description: Media server and streaming
                     icon: jellyfin.png
 

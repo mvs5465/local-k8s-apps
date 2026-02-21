@@ -30,7 +30,7 @@ spec:
             enabled: true
             ingressClassName: nginx
             hosts:
-              - prometheus.local
+              - prometheus.lan
             path: /
             pathType: Prefix
 

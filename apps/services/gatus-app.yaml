@@ -34,7 +34,7 @@ spec:
           path: /
           pathType: Prefix
           hosts:
-            - gatus.local
+            - gatus.lan
 
         persistence:
           enabled: true

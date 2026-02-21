@@ -40,7 +40,7 @@ spec:
           enabled: true
           ingressClassName: nginx
           hosts:
-            - grafana.local
+            - grafana.lan
           path: /
           pathType: Prefix
 
