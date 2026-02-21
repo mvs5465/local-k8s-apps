@@ -806,6 +806,49 @@ spec:
                       ],
                       "title": "Log Levels (2m rate)",
                       "type": "timeseries"
+                    },
+                    {
+                      "datasource": { "type": "loki", "uid": "P8E80F9AEF21F6940" },
+                      "fieldConfig": {
+                        "defaults": {
+                          "color": { "mode": "palette-classic" },
+                          "custom": {
+                            "align": "auto",
+                            "cellOptions": { "type": "auto" },
+                            "inspect": false,
+                            "filterable": true,
+                            "sortBy": [{ "displayName": "Time", "desc": true }]
+                          },
+                          "mappings": [],
+                          "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                              { "color": "green", "value": null }
+                            ]
+                          }
+                        },
+                        "overrides": [
+                          { "matcher": { "id": "byName", "options": "Time" }, "properties": [{ "id": "custom.width", "value": 150 }] },
+                          { "matcher": { "id": "byName", "options": "pod" }, "properties": [{ "id": "custom.width", "value": 150 }] },
+                          { "matcher": { "id": "byName", "options": "namespace" }, "properties": [{ "id": "custom.width", "value": 100 }] },
+                          { "matcher": { "id": "byName", "options": "Line" }, "properties": [{ "id": "custom.width", "value": 500 } ] }
+                        ]
+                      },
+                      "gridPos": { "h": 10, "w": 24, "x": 0, "y": 16 },
+                      "id": 4,
+                      "options": {
+                        "showHeader": true,
+                        "sortBy": [{ "displayName": "Time", "desc": true }]
+                      },
+                      "targets": [
+                        {
+                          "datasource": { "type": "loki", "uid": "P8E80F9AEF21F6940" },
+                          "expr": "{namespace=~\".+\"} |~ \"(?i)error\"",
+                          "refId": "A"
+                        }
+                      ],
+                      "title": "Error Logs",
+                      "type": "logs"
                     }
                   ],
                   "refresh": "30s",
