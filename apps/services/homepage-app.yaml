@@ -47,14 +47,13 @@ spec:
 
         config:
           bookmarks:
-            - label: "GitHub"
-              links:
-                - name: "local-k8s-argocd"
-                  icon: "mdi-github"
-                  url: "https://github.com/mvs5465/local-k8s-argocd"
-                - name: "local-k8s-apps"
-                  icon: "mdi-github"
-                  url: "https://github.com/mvs5465/local-k8s-apps"
+            - GitHub Repos:
+                - name: local-k8s-argocd
+                  icon: mdi-github
+                  url: https://github.com/mvs5465/local-k8s-argocd
+                - name: local-k8s-apps
+                  icon: mdi-github
+                  url: https://github.com/mvs5465/local-k8s-apps
 
           services:
             - Infrastructure:
@@ -107,7 +106,6 @@ spec:
             title: Local K8s Cluster
             theme: dark
             color: slate
-            disableDefaultBookmarks: true
 
   destination:
     server: https://kubernetes.default.svc
