@@ -100,6 +100,8 @@ spec:
                   - redis-server
                   - "--appendonly"
                   - "yes"
+                  - "--dir"
+                  - "/redis-data"
                 resources:
                   requests:
                     cpu: 50m
@@ -145,7 +147,7 @@ spec:
             enabled: true
             type: emptyDir
             globalMounts:
-              - path: /data
+              - path: /redis-data
 
   destination:
     server: https://kubernetes.default.svc
