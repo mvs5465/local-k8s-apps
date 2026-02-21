@@ -27,6 +27,8 @@ spec:
                   # Core Outline configuration
                   - name: NODE_ENV
                     value: "production"
+                  - name: URL
+                    value: "http://outline.lan"
                   - name: SECRET_KEY
                     valueFrom:
                       secretKeyRef:
