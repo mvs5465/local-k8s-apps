@@ -107,6 +107,7 @@ spec:
             title: Local K8s Cluster
             theme: dark
             color: slate
+            disableDefaultBookmarks: true
 
   destination:
     server: https://kubernetes.default.svc
