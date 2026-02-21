@@ -1,0 +1,155 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: outline
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: cluster
+  source:
+    repoURL: https://bjw-s.github.io/helm-charts
+    chart: app-template
+    targetRevision: 3.x
+    helm:
+      releaseName: outline
+      values: |
+        controllers:
+          main:
+            containers:
+              main:
+                image:
+                  repository: outlinewiki/outline
+                  tag: latest
+                env:
+                  # Core Outline configuration
+                  - name: NODE_ENV
+                    value: "production"
+                  - name: SECRET_KEY
+                    valueFrom:
+                      secretKeyRef:
+                        name: outline-secrets
+                        key: secret-key
+                  - name: UTILS_SECRET
+                    valueFrom:
+                      secretKeyRef:
+                        name: outline-secrets
+                        key: utils-secret
+                  # Database configuration
+                  - name: DATABASE_URL
+                    valueFrom:
+                      secretKeyRef:
+                        name: outline-secrets
+                        key: database-url
+                  # Redis configuration (required by Outline)
+                  - name: REDIS_URL
+                    value: "redis://outline-redis:6379"
+                  # File storage (local filesystem)
+                  - name: FILE_STORAGE
+                    value: "local"
+                  - name: FILE_STORAGE_LOCAL_ROOT_DIR
+                    value: "/data/files"
+                  # SSL configuration for database
+                  - name: PGSSLMODE
+                    value: "disable"
+                  # Logging
+                  - name: LOG_LEVEL
+                    value: "info"
+                resources:
+                  requests:
+                    cpu: 100m
+                    memory: 256Mi
+                  limits:
+                    cpu: 500m
+                    memory: 512Mi
+
+          postgres:
+            type: statefulset
+            containers:
+              main:
+                image:
+                  repository: postgres
+                  tag: "16-alpine"
+                env:
+                  - name: POSTGRES_USER
+                    value: "outline"
+                  - name: POSTGRES_PASSWORD
+                    valueFrom:
+                      secretKeyRef:
+                        name: outline-secrets
+                        key: postgres-password
+                  - name: POSTGRES_DB
+                    value: "outline"
+                  - name: PGDATA
+                    value: "/var/lib/postgresql/data/pgdata"
+                resources:
+                  requests:
+                    cpu: 50m
+                    memory: 128Mi
+                  limits:
+                    cpu: 200m
+                    memory: 256Mi
+
+          redis:
+            containers:
+              main:
+                image:
+                  repository: redis
+                  tag: "7-alpine"
+                command:
+                  - redis-server
+                  - "--appendonly"
+                  - "yes"
+                resources:
+                  requests:
+                    cpu: 50m
+                    memory: 64Mi
+                  limits:
+                    cpu: 100m
+                    memory: 128Mi
+
+        service:
+          main:
+            ports:
+              http:
+                port: 3000
+
+        ingress:
+          main:
+            enabled: true
+            className: nginx
+            hosts:
+              - host: outline.lan
+                paths:
+                  - path: /
+                    pathType: Prefix
+
+        persistence:
+          data:
+            enabled: true
+            type: hostPath
+            hostPath: /var/lib/colima/mnt/mac/Users/matthewschwartz/outline
+            globalMounts:
+              - path: /data
+          postgres-data:
+            enabled: true
+            type: hostPath
+            hostPath: /var/lib/colima/mnt/mac/Users/matthewschwartz/outline/postgres
+            globalMounts:
+              - path: /var/lib/postgresql/data
+          redis-data:
+            enabled: true
+            type: emptyDir
+            globalMounts:
+              - path: /data
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: outline
+
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
