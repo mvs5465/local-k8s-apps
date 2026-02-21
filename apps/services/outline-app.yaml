@@ -21,6 +21,8 @@ spec:
                 image:
                   repository: outlinewiki/outline
                   tag: latest
+                securityContext:
+                  runAsUser: 0
                 env:
                   # Core Outline configuration
                   - name: NODE_ENV
