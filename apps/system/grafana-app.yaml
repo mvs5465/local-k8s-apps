@@ -613,7 +613,7 @@ spec:
                   "uid": "cluster-overview",
                   "version": 1
                 }
-            loki-logs:
+            loki-metrics:
               json: |
                 {
                   "annotations": {
@@ -669,7 +669,7 @@ spec:
                         },
                         "overrides": []
                       },
-                      "gridPos": { "h": 6, "w": 24, "x": 0, "y": 0 },
+                      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
                       "id": 1,
                       "options": {
                         "legend": { "calcs": [], "displayMode": "list", "placement": "bottom", "showLegend": true },
@@ -678,169 +678,148 @@ spec:
                       "targets": [
                         {
                           "datasource": { "type": "loki", "uid": "P8E80F9AEF21F6940" },
-                          "expr": "sum(count_over_time({namespace=~\".+\", namespace=~\"$namespace\"}[2m])) by (namespace)",
+                          "expr": "sum(count_over_time({namespace=~\".+\"}[2m])) by (namespace)",
                           "legendFormat": "{{namespace}}",
                           "refId": "A"
                         }
                       ],
-                      "title": "Log Volume",
+                      "title": "Log Volume by Namespace",
                       "type": "timeseries"
                     },
                     {
                       "datasource": { "type": "loki", "uid": "P8E80F9AEF21F6940" },
-                      "gridPos": { "h": 16, "w": 24, "x": 0, "y": 6 },
+                      "fieldConfig": {
+                        "defaults": {
+                          "color": { "mode": "palette-classic" },
+                          "custom": {
+                            "axisCenteredZero": false,
+                            "axisColorMode": "text",
+                            "axisPlacement": "auto",
+                            "barAlignment": 0,
+                            "drawStyle": "bars",
+                            "fillOpacity": 100,
+                            "gradientMode": "none",
+                            "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+                            "lineInterpolation": "linear",
+                            "lineWidth": 1,
+                            "pointSize": 5,
+                            "scaleDistribution": { "type": "linear" },
+                            "showPoints": "never",
+                            "spanNulls": true,
+                            "stacking": { "group": "A", "mode": "none" },
+                            "thresholdsStyle": { "mode": "off" }
+                          },
+                          "mappings": [],
+                          "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                              { "color": "green", "value": null }
+                            ]
+                          },
+                          "unit": "short"
+                        },
+                        "overrides": []
+                      },
+                      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
                       "id": 2,
                       "options": {
-                        "dedupStrategy": "none",
-                        "enableLogDetails": true,
-                        "prettifyLogMessage": false,
-                        "showCommonLabels": false,
-                        "showLabels": false,
-                        "showTime": true,
-                        "sortOrder": "Descending",
-                        "wrapLogMessage": true
+                        "legend": { "calcs": [], "displayMode": "list", "placement": "bottom", "showLegend": true },
+                        "tooltip": { "mode": "multi", "sort": "none" }
                       },
                       "targets": [
                         {
                           "datasource": { "type": "loki", "uid": "P8E80F9AEF21F6940" },
-                          "expr": "{namespace=~\".+\", namespace=~\"$namespace\", pod=~\"$pod\"} |~ \"(?i)error\" |~ \"(?i)${search:raw}\"",
-                          "legendFormat": "",
+                          "expr": "sum(count_over_time({namespace=~\".+\"}[2m])) by (pod, namespace) | unwrap 1",
+                          "legendFormat": "{{pod}} ({{namespace}})",
                           "refId": "A"
                         }
                       ],
-                      "title": "Errors",
-                      "type": "logs"
+                      "title": "Log Volume by Pod",
+                      "type": "timeseries"
                     },
                     {
                       "datasource": { "type": "loki", "uid": "P8E80F9AEF21F6940" },
-                      "gridPos": { "h": 16, "w": 24, "x": 0, "y": 22 },
+                      "fieldConfig": {
+                        "defaults": {
+                          "color": { "mode": "palette-classic" },
+                          "custom": {
+                            "axisCenteredZero": false,
+                            "axisColorMode": "text",
+                            "axisPlacement": "auto",
+                            "barAlignment": 0,
+                            "drawStyle": "bars",
+                            "fillOpacity": 100,
+                            "gradientMode": "none",
+                            "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+                            "lineInterpolation": "linear",
+                            "lineWidth": 1,
+                            "pointSize": 5,
+                            "scaleDistribution": { "type": "linear" },
+                            "showPoints": "never",
+                            "spanNulls": true,
+                            "stacking": { "group": "A", "mode": "normal" },
+                            "thresholdsStyle": { "mode": "off" }
+                          },
+                          "color": { "mode": "thresholds" },
+                          "mappings": [],
+                          "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                              { "color": "green", "value": null },
+                              { "color": "yellow", "value": 10 },
+                              { "color": "red", "value": 50 }
+                            ]
+                          },
+                          "unit": "short"
+                        },
+                        "overrides": [
+                          { "matcher": { "id": "byName", "options": "error" }, "properties": [{ "id": "color", "value": { "mode": "fixed", "fixedColor": "red" } }] },
+                          { "matcher": { "id": "byName", "options": "warn" }, "properties": [{ "id": "color", "value": { "mode": "fixed", "fixedColor": "yellow" } }] },
+                          { "matcher": { "id": "byName", "options": "info" }, "properties": [{ "id": "color", "value": { "mode": "fixed", "fixedColor": "blue" } }] }
+                        ]
+                      },
+                      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 8 },
                       "id": 3,
                       "options": {
-                        "dedupStrategy": "none",
-                        "enableLogDetails": true,
-                        "prettifyLogMessage": false,
-                        "showCommonLabels": false,
-                        "showLabels": false,
-                        "showTime": true,
-                        "sortOrder": "Descending",
-                        "wrapLogMessage": true
+                        "legend": { "calcs": [], "displayMode": "list", "placement": "bottom", "showLegend": true },
+                        "tooltip": { "mode": "multi", "sort": "none" }
                       },
                       "targets": [
                         {
                           "datasource": { "type": "loki", "uid": "P8E80F9AEF21F6940" },
-                          "expr": "{namespace=~\".+\", namespace=~\"$namespace\", pod=~\"$pod\"} |~ \"(?i)warn\" |~ \"(?i)${search:raw}\"",
-                          "legendFormat": "",
+                          "expr": "sum(count_over_time({namespace=~\".+\"} |~ \"(?i)error\" [2m])) by () * 1",
+                          "legendFormat": "error",
                           "refId": "A"
-                        }
-                      ],
-                      "title": "Warnings",
-                      "type": "logs"
-                    },
-                    {
-                      "datasource": { "type": "loki", "uid": "P8E80F9AEF21F6940" },
-                      "gridPos": { "h": 16, "w": 24, "x": 0, "y": 38 },
-                      "id": 4,
-                      "options": {
-                        "dedupStrategy": "none",
-                        "enableLogDetails": true,
-                        "prettifyLogMessage": false,
-                        "showCommonLabels": false,
-                        "showLabels": false,
-                        "showTime": true,
-                        "sortOrder": "Descending",
-                        "wrapLogMessage": true
-                      },
-                      "targets": [
+                        },
                         {
                           "datasource": { "type": "loki", "uid": "P8E80F9AEF21F6940" },
-                          "expr": "{namespace=~\".+\", namespace=~\"$namespace\", pod=~\"$pod\"} |~ \"(?i)info\" |~ \"(?i)${search:raw}\"",
-                          "legendFormat": "",
-                          "refId": "A"
-                        }
-                      ],
-                      "title": "Info",
-                      "type": "logs"
-                    },
-                    {
-                      "datasource": { "type": "loki", "uid": "P8E80F9AEF21F6940" },
-                      "gridPos": { "h": 16, "w": 24, "x": 0, "y": 54 },
-                      "id": 5,
-                      "options": {
-                        "dedupStrategy": "none",
-                        "enableLogDetails": true,
-                        "prettifyLogMessage": false,
-                        "showCommonLabels": false,
-                        "showLabels": false,
-                        "showTime": true,
-                        "sortOrder": "Descending",
-                        "wrapLogMessage": true
-                      },
-                      "targets": [
+                          "expr": "sum(count_over_time({namespace=~\".+\"} |~ \"(?i)warn\" [2m])) by () * 1",
+                          "legendFormat": "warn",
+                          "refId": "B"
+                        },
                         {
                           "datasource": { "type": "loki", "uid": "P8E80F9AEF21F6940" },
-                          "expr": "{namespace=~\".+\", namespace=~\"$namespace\", pod=~\"$pod\"} |~ \"(?i)debug\" |~ \"(?i)${search:raw}\"",
-                          "legendFormat": "",
-                          "refId": "A"
+                          "expr": "sum(count_over_time({namespace=~\".+\"} |~ \"(?i)info\" [2m])) by () * 1",
+                          "legendFormat": "info",
+                          "refId": "C"
                         }
                       ],
-                      "title": "Debug",
-                      "type": "logs"
+                      "title": "Log Levels (2m rate)",
+                      "type": "timeseries"
                     }
                   ],
                   "refresh": "30s",
                   "schemaVersion": 38,
                   "style": "dark",
-                  "tags": ["logs", "loki"],
+                  "tags": ["logs", "loki", "metrics"],
                   "templating": {
-                    "list": [
-                      {
-                        "current": {},
-                        "datasource": { "type": "loki", "uid": "P8E80F9AEF21F6940" },
-                        "definition": "label_values(namespace)",
-                        "hide": 0,
-                        "includeAll": true,
-                        "multi": false,
-                        "name": "namespace",
-                        "options": [],
-                        "query": "label_values(namespace)",
-                        "refresh": 2,
-                        "regex": "",
-                        "sort": 1,
-                        "type": "query",
-                        "label": "Namespace"
-                      },
-                      {
-                        "current": {},
-                        "datasource": { "type": "loki", "uid": "P8E80F9AEF21F6940" },
-                        "definition": "label_values({namespace=~\".+\", namespace=~\"$namespace\"}, pod)",
-                        "hide": 0,
-                        "includeAll": true,
-                        "multi": false,
-                        "name": "pod",
-                        "options": [],
-                        "query": "label_values({namespace=~\".+\", namespace=~\"$namespace\"}, pod)",
-                        "refresh": 2,
-                        "regex": "",
-                        "sort": 1,
-                        "type": "query",
-                        "label": "Pod"
-                      },
-                      {
-                        "type": "textbox",
-                        "name": "search",
-                        "label": "Search",
-                        "query": "",
-                        "current": { "selected": false, "text": "", "value": "" },
-                        "hide": 0,
-                        "skipUrlSync": false
-                      }
-                    ]
+                    "list": []
                   },
                   "time": { "from": "now-1h", "to": "now" },
                   "timepicker": {},
                   "timezone": "",
-                  "title": "Loki Logs",
-                  "uid": "loki-logs",
+                  "title": "Loki Metrics",
+                  "uid": "loki-metrics",
                   "version": 1
                 }
 
