@@ -611,6 +611,7 @@ spec:
                   "timezone": "",
                   "title": "Cluster Overview",
                   "uid": "cluster-overview",
+                  "starred": true,
                   "version": 1
                 }
             loki-metrics:
@@ -863,6 +864,7 @@ spec:
                   "timezone": "",
                   "title": "Loki Metrics",
                   "uid": "loki-metrics",
+                  "starred": true,
                   "version": 1
                 }
 
