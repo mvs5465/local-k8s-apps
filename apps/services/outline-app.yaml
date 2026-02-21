@@ -126,6 +126,13 @@ spec:
             ports:
               http:
                 port: 3000
+          postgres:
+            controller: postgres
+            type: ClusterIP
+            clusterIP: None  # Headless service for StatefulSet
+            ports:
+              postgres:
+                port: 5432
 
         ingress:
           main:
