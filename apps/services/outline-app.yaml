@@ -133,6 +133,11 @@ spec:
             ports:
               postgres:
                 port: 5432
+          redis:
+            controller: redis
+            ports:
+              redis:
+                port: 6379
 
         ingress:
           main:
