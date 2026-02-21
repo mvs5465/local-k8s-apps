@@ -843,7 +843,7 @@ spec:
                       "targets": [
                         {
                           "datasource": { "type": "loki", "uid": "P8E80F9AEF21F6940" },
-                          "expr": "{namespace=~\".+\"} |~ \"(?i)error\" !~ \"watchdog\\\\.executeEndpoint\"",
+                          "expr": "{namespace=~\".+\"} |~ \"(?i)error\" !~ \"watchdog\\\\.executeEndpoint\" | service_name != \"ingress-nginx\"",
                           "refId": "A"
                         }
                       ],
