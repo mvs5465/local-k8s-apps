@@ -50,10 +50,10 @@ spec:
             - label: "GitHub"
               links:
                 - name: "local-k8s-argocd"
-                  icon: "github"
+                  icon: "mdi-github"
                   url: "https://github.com/mvs5465/local-k8s-argocd"
                 - name: "local-k8s-apps"
-                  icon: "github"
+                  icon: "mdi-github"
                   url: "https://github.com/mvs5465/local-k8s-apps"
 
           services:
