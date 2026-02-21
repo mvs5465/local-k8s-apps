@@ -72,11 +72,6 @@ spec:
                     href: http://jellyfin.lan
                     description: Media server and streaming
                     icon: jellyfin.png
-            - Tools:
-                - Wiki.js:
-                    href: http://wiki.lan
-                    description: Personal knowledge base
-                    icon: wikijs.png
 
           widgets:
             - kubernetes:
