@@ -46,6 +46,9 @@ spec:
                   # Redis configuration (required by Outline)
                   - name: REDIS_URL
                     value: "redis://outline-redis:6379"
+                  # Redis for collaboration service (required by Outline for real-time collaboration)
+                  - name: REDIS_COLLABORATION_URL
+                    value: "redis://outline-redis:6379"
                   # Collaboration URL (required by Outline for real-time collaboration)
                   - name: COLLABORATION_URL
                     value: "http://outline-main:3000"
