@@ -54,6 +54,9 @@ spec:
                   # Collaboration URL (required by Outline for real-time collaboration)
                   - name: COLLABORATION_URL
                     value: "http://outline-main:3000"
+                  # Disable HTTPS redirect for internal cluster access
+                  - name: FORCE_HTTPS
+                    value: "false"
                   # File storage (local filesystem)
                   - name: FILE_STORAGE
                     value: "local"
