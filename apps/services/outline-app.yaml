@@ -21,6 +21,11 @@ spec:
                 image:
                   repository: outlinewiki/outline
                   tag: latest
+                volumeMounts:
+                  - name: data
+                    mountPath: /data
+                  - name: postgres-data
+                    mountPath: /var/lib/postgresql/data
                 env:
                   # Core Outline configuration
                   - name: NODE_ENV
@@ -70,6 +75,9 @@ spec:
                 image:
                   repository: postgres
                   tag: "16-alpine"
+                volumeMounts:
+                  - name: postgres-data
+                    mountPath: /var/lib/postgresql/data
                 env:
                   - name: POSTGRES_USER
                     value: "outline"
@@ -96,6 +104,9 @@ spec:
                 image:
                   repository: redis
                   tag: "7-alpine"
+                volumeMounts:
+                  - name: redis-data
+                    mountPath: /redis-data
                 command:
                   - redis-server
                   - "--appendonly"
@@ -135,19 +146,13 @@ spec:
             enabled: true
             type: hostPath
             hostPath: /var/lib/colima/mnt/mac/Users/matthewschwartz/outline
-            globalMounts:
-              - path: /data
           postgres-data:
             enabled: true
             type: hostPath
             hostPath: /var/lib/colima/mnt/mac/Users/matthewschwartz/outline/postgres
-            globalMounts:
-              - path: /var/lib/postgresql/data
           redis-data:
             enabled: true
             type: emptyDir
-            globalMounts:
-              - path: /redis-data
 
   destination:
     server: https://kubernetes.default.svc
