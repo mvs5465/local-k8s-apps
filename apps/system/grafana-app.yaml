@@ -678,7 +678,7 @@ spec:
                       "targets": [
                         {
                           "datasource": { "type": "loki", "uid": "P8E80F9AEF21F6940" },
-                          "expr": "sum(count_over_time({namespace=~\".+\", namespace=~\"$namespace\"}[1m])) by (namespace)",
+                          "expr": "sum(count_over_time({namespace=~\".+\", namespace=~\"$namespace\"}[2m])) by (namespace)",
                           "legendFormat": "{{namespace}}",
                           "refId": "A"
                         }
@@ -688,7 +688,7 @@ spec:
                     },
                     {
                       "datasource": { "type": "loki", "uid": "P8E80F9AEF21F6940" },
-                      "gridPos": { "h": 22, "w": 24, "x": 0, "y": 6 },
+                      "gridPos": { "h": 16, "w": 24, "x": 0, "y": 6 },
                       "id": 2,
                       "options": {
                         "dedupStrategy": "none",
@@ -703,12 +703,87 @@ spec:
                       "targets": [
                         {
                           "datasource": { "type": "loki", "uid": "P8E80F9AEF21F6940" },
-                          "expr": "{namespace=~\".+\", namespace=~\"$namespace\", pod=~\"$pod\"} |~ \"(?i)$level\"",
+                          "expr": "{namespace=~\".+\", namespace=~\"$namespace\", pod=~\"$pod\"} |~ \"(?i)error\" |~ \"(?i)${search:raw}\"",
                           "legendFormat": "",
                           "refId": "A"
                         }
                       ],
-                      "title": "Logs",
+                      "title": "Errors",
+                      "type": "logs"
+                    },
+                    {
+                      "datasource": { "type": "loki", "uid": "P8E80F9AEF21F6940" },
+                      "gridPos": { "h": 16, "w": 24, "x": 0, "y": 22 },
+                      "id": 3,
+                      "options": {
+                        "dedupStrategy": "none",
+                        "enableLogDetails": true,
+                        "prettifyLogMessage": false,
+                        "showCommonLabels": false,
+                        "showLabels": false,
+                        "showTime": true,
+                        "sortOrder": "Descending",
+                        "wrapLogMessage": true
+                      },
+                      "targets": [
+                        {
+                          "datasource": { "type": "loki", "uid": "P8E80F9AEF21F6940" },
+                          "expr": "{namespace=~\".+\", namespace=~\"$namespace\", pod=~\"$pod\"} |~ \"(?i)warn\" |~ \"(?i)${search:raw}\"",
+                          "legendFormat": "",
+                          "refId": "A"
+                        }
+                      ],
+                      "title": "Warnings",
+                      "type": "logs"
+                    },
+                    {
+                      "datasource": { "type": "loki", "uid": "P8E80F9AEF21F6940" },
+                      "gridPos": { "h": 16, "w": 24, "x": 0, "y": 38 },
+                      "id": 4,
+                      "options": {
+                        "dedupStrategy": "none",
+                        "enableLogDetails": true,
+                        "prettifyLogMessage": false,
+                        "showCommonLabels": false,
+                        "showLabels": false,
+                        "showTime": true,
+                        "sortOrder": "Descending",
+                        "wrapLogMessage": true
+                      },
+                      "targets": [
+                        {
+                          "datasource": { "type": "loki", "uid": "P8E80F9AEF21F6940" },
+                          "expr": "{namespace=~\".+\", namespace=~\"$namespace\", pod=~\"$pod\"} |~ \"(?i)info\" |~ \"(?i)${search:raw}\"",
+                          "legendFormat": "",
+                          "refId": "A"
+                        }
+                      ],
+                      "title": "Info",
+                      "type": "logs"
+                    },
+                    {
+                      "datasource": { "type": "loki", "uid": "P8E80F9AEF21F6940" },
+                      "gridPos": { "h": 16, "w": 24, "x": 0, "y": 54 },
+                      "id": 5,
+                      "options": {
+                        "dedupStrategy": "none",
+                        "enableLogDetails": true,
+                        "prettifyLogMessage": false,
+                        "showCommonLabels": false,
+                        "showLabels": false,
+                        "showTime": true,
+                        "sortOrder": "Descending",
+                        "wrapLogMessage": true
+                      },
+                      "targets": [
+                        {
+                          "datasource": { "type": "loki", "uid": "P8E80F9AEF21F6940" },
+                          "expr": "{namespace=~\".+\", namespace=~\"$namespace\", pod=~\"$pod\"} |~ \"(?i)debug\" |~ \"(?i)${search:raw}\"",
+                          "legendFormat": "",
+                          "refId": "A"
+                        }
+                      ],
+                      "title": "Debug",
                       "type": "logs"
                     }
                   ],
@@ -751,22 +826,12 @@ spec:
                         "label": "Pod"
                       },
                       {
-                        "type": "custom",
-                        "name": "level",
-                        "label": "Log Level",
-                        "query": "error|warn,error,warn,info,debug,error|warn|info|debug",
-                        "current": { "selected": true, "text": "error|warn", "value": "error|warn" },
-                        "options": [
-                          { "selected": true,  "text": "error|warn",          "value": "error|warn" },
-                          { "selected": false, "text": "error",               "value": "error" },
-                          { "selected": false, "text": "warn",                "value": "warn" },
-                          { "selected": false, "text": "info",                "value": "info" },
-                          { "selected": false, "text": "debug",               "value": "debug" },
-                          { "selected": false, "text": "all",                 "value": "error|warn|info|debug" }
-                        ],
+                        "type": "textbox",
+                        "name": "search",
+                        "label": "Search",
+                        "query": "",
+                        "current": { "selected": false, "text": "", "value": "" },
                         "hide": 0,
-                        "includeAll": false,
-                        "multi": false,
                         "skipUrlSync": false
                       }
                     ]
