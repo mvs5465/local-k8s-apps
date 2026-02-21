@@ -1,66 +1,57 @@
 # Local K8s Applications
 
-ArgoCD Application definitions for the local K8s cluster.
+ArgoCD Application definitions for system and user-facing services. Pair with [`local-k8s-argocd`](https://github.com/mvs5465/local-k8s-argocd) infrastructure repo.
 
-## Repository Structure
+## Services Included
+
+**System Tier** (monitoring & infrastructure):
+- **Prometheus**: Metrics collection from all pods
+- **Grafana**: Dashboards (Cluster Overview, Loki Logs)
+- **Loki**: Log aggregation backend
+- **Promtail**: Log collection agent (runs on all nodes)
+- **Nginx Ingress**: Routes external traffic to services
+
+**Services Tier** (user-facing):
+- **Homepage**: Service dashboard with live k8s cluster widget
+- **Gatus**: Uptime monitoring and status page
+- **Jellyfin**: Media server
+
+## Structure
 
 ```
 apps/
-├── system-app.yaml          # Parent app for system services
-├── services-app.yaml        # Parent app for application services
+├── system-app.yaml         # Parent for system services
+├── services-app.yaml       # Parent for user services
 ├── system/
-│   ├── prometheus-app.yaml  # Prometheus metrics collection
-│   └── grafana-app.yaml     # Grafana visualization UI
+│   ├── prometheus-app.yaml
+│   ├── grafana-app.yaml
+│   ├── loki-app.yaml
+│   ├── promtail-app.yaml
+│   └── nginx-ingress-app.yaml
 └── services/
-    ├── dashboard-ui-app.yaml      # Cluster dashboard
-    └── fileserver-app.yaml.disabled  # Static file server (disabled by default)
+    ├── homepage-app.yaml
+    ├── gatus-app.yaml
+    └── jellyfin-app.yaml
 
 manifests/
-├── prometheus/              # Prometheus manifest files
-├── grafana/                 # Grafana manifest files
-├── dashboard-ui/            # Dashboard UI manifest files
-└── fileserver/              # Fileserver manifest files
+├── prometheus/
+├── grafana/
+├── loki/
+├── promtail/
+├── nginx-ingress/
+├── homepage/
+├── gatus/
+└── jellyfin/
 ```
 
-## How It Works
+## Adding Apps
 
-- **local-k8s-argocd** points root app to `apps/` directory
-- Parent apps (`system-app.yaml`, `services-app.yaml`) in `apps/` point to their respective subdirectories
-- Each parent app auto-discovers child applications in its subdirectory
-- Actual manifests are in `manifests/` with one directory per app
-- Each child Application file specifies its path in `manifests/`
+1. Create `<app-name>-app.yaml` in `apps/system/` or `apps/services/`
+2. Reference your Helm chart or git repo
+3. Push to main—ArgoCD auto-discovers it
 
-## Enabling Optional Applications
+## Development
 
-**Fileserver** (currently disabled):
-- File: `apps/services/fileserver-app.yaml.disabled`
-- To enable: Rename to `fileserver-app.yaml`
-- Requirements: `/tmp/files` directory must exist on k3s node
-- Setup: `colima ssh mkdir -p /tmp/files`
-- Then push to main—ArgoCD will auto-discover and deploy
+Create feature branches to test changes. ArgoCD watches main, so changes sync automatically after merge.
 
-## Adding New Applications
-
-1. **Add manifest:** Create directory in `manifests/<app-name>/` with manifest files
-2. **Add ArgoCD app:** Create `<app-name>-app.yaml` in `apps/system/` or `apps/services/`
-3. **Point to manifests:** Set `path: manifests/<app-name>` in the Application spec
-4. **Push to main:** Root app will auto-discover
-
-## Two-Repo Architecture
-
-This setup prevents the "chicken-and-egg" problem:
-
-- **local-k8s-argocd**: Infrastructure repo (stable, ArgoCD config)
-  - Rarely changes
-  - Contains ArgoCD installation and root apps
-  - Points to `local-k8s-apps/apps/`
-
-- **local-k8s-apps**: Applications repo (active development)
-  - Where you add/modify/test applications
-  - Can iterate on feature branches safely
-  - ArgoCD auto-discovers from main
-
-Benefits:
-- Test application changes without touching ArgoCD
-- Clear separation of concerns
-- Safer production deployments (config changes less frequent)
+See `CLAUDE.md` for development guidelines.
