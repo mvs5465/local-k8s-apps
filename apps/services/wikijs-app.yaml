@@ -9,10 +9,10 @@ spec:
   project: cluster
   source:
     repoURL: https://charts.js.wiki
-    chart: requarks
+    chart: wiki
     targetRevision: 2.x
     helm:
-      releaseName: requarks/wiki
+      releaseName: wiki
       values: |
         image:
           tag: "2"
