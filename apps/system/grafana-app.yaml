@@ -729,7 +729,7 @@ spec:
                       "targets": [
                         {
                           "datasource": { "type": "loki", "uid": "P8E80F9AEF21F6940" },
-                          "expr": "sum(count_over_time({namespace=~\".+\"}[2m])) by (pod, namespace) | unwrap 1",
+                          "expr": "sum(count_over_time({namespace=~\".+\"}[2m])) by (pod, namespace)",
                           "legendFormat": "{{pod}} ({{namespace}})",
                           "refId": "A"
                         }
@@ -787,19 +787,19 @@ spec:
                       "targets": [
                         {
                           "datasource": { "type": "loki", "uid": "P8E80F9AEF21F6940" },
-                          "expr": "sum(count_over_time({namespace=~\".+\"} |~ \"(?i)error\" [2m])) by () * 1",
+                          "expr": "sum(count_over_time({namespace=~\".+\"} |~ \"(?i)error\" [2m]))",
                           "legendFormat": "error",
                           "refId": "A"
                         },
                         {
                           "datasource": { "type": "loki", "uid": "P8E80F9AEF21F6940" },
-                          "expr": "sum(count_over_time({namespace=~\".+\"} |~ \"(?i)warn\" [2m])) by () * 1",
+                          "expr": "sum(count_over_time({namespace=~\".+\"} |~ \"(?i)warn\" [2m]))",
                           "legendFormat": "warn",
                           "refId": "B"
                         },
                         {
                           "datasource": { "type": "loki", "uid": "P8E80F9AEF21F6940" },
-                          "expr": "sum(count_over_time({namespace=~\".+\"} |~ \"(?i)info\" [2m])) by () * 1",
+                          "expr": "sum(count_over_time({namespace=~\".+\"} |~ \"(?i)info\" [2m]))",
                           "legendFormat": "info",
                           "refId": "C"
                         }
