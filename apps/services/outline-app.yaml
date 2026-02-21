@@ -16,6 +16,15 @@ spec:
       values: |
         controllers:
           main:
+            initContainers:
+              init-storage:
+                image:
+                  repository: busybox
+                  tag: latest
+                command:
+                  - sh
+                  - -c
+                  - mkdir -p /data/files && chmod 777 /data /data/files
             containers:
               main:
                 image:
