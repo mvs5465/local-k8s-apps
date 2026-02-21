@@ -67,14 +67,14 @@ spec:
                     value: "debug"
                   # Node.js memory tuning for stable startup
                   - name: NODE_OPTIONS
-                    value: "--max-old-space-size=768"
+                    value: "--max-old-space-size=512"
                 resources:
                   requests:
                     cpu: 100m
-                    memory: 512Mi
+                    memory: 1Gi
                   limits:
                     cpu: 500m
-                    memory: 1Gi
+                    memory: 2Gi
 
           postgres:
             type: statefulset
