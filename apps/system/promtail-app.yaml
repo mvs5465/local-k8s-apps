@@ -16,15 +16,11 @@ spec:
           clients:
             - url: http://loki.monitoring.svc.cluster.local:3100/loki/api/v1/push
 
-          scrape_configs:
-            - job_name: kubernetes-pods
-              kubernetes_sd_configs:
-                - role: pod
-              relabel_configs:
-                # Exclude observability and infrastructure namespaces
-                - source_labels: [__meta_kubernetes_namespace]
-                  action: drop
-                  regex: (grafana|loki|promtail|kube-system)
+          snippets:
+            extraRelabelConfigs:
+              - source_labels: [__meta_kubernetes_namespace]
+                action: drop
+                regex: grafana|loki|promtail|argocd
 
         resources:
           requests:
