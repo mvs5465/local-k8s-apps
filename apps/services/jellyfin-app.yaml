@@ -20,7 +20,7 @@ spec:
           className: nginx
           annotations: {}
           hosts:
-            - host: jellyfin.local
+            - host: jellyfin.lan
               paths:
                 - path: /
                   pathType: Prefix
