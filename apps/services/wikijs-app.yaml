@@ -9,7 +9,7 @@ spec:
   project: cluster
   source:
     repoURL: https://charts.js.wiki
-    chart: wiki
+    chart: requarks/wiki
     targetRevision: 2.3.0
     helm:
       releaseName: wikijs
