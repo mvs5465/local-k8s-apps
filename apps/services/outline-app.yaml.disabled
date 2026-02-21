@@ -64,7 +64,7 @@ spec:
                     value: "disable"
                   # Logging
                   - name: LOG_LEVEL
-                    value: "info"
+                    value: "debug"
                 resources:
                   requests:
                     cpu: 100m
