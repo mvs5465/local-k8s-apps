@@ -838,12 +838,13 @@ spec:
                       "id": 4,
                       "options": {
                         "showHeader": true,
-                        "sortBy": [{ "displayName": "Time", "desc": true }]
+                        "sortBy": [{ "displayName": "Time", "desc": true }],
+                        "enableLogDetails": false
                       },
                       "targets": [
                         {
                           "datasource": { "type": "loki", "uid": "P8E80F9AEF21F6940" },
-                          "expr": "{namespace=~\".+\"} |~ \"(?i)error\"",
+                          "expr": "{namespace=~\".+\"} |~ \"(?i)error\" !~ \"watchdog\\.executeEndpoint\"",
                           "refId": "A"
                         }
                       ],
