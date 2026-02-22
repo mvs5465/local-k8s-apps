@@ -322,19 +322,16 @@ dashboards:
               },
               "id": 5,
               "options": {
-                "colorMode": "background",
-                "graphMode": "none",
-                "justifyMode": "auto",
-                "orientation": "auto",
-                "reduceOptions": {
-                  "values": false,
+                "footer": {
+                  "countRows": false,
                   "fields": "",
-                  "calcs": [
-                    "lastNotNull"
-                  ]
+                  "reducer": [
+                    "sum"
+                  ],
+                  "show": false
                 },
-                "text": {},
-                "textMode": "auto"
+                "showHeader": true,
+                "sortBy": []
               },
               "pluginVersion": "10.0.0",
               "targets": [
@@ -343,53 +340,6 @@ dashboards:
                   "format": "table",
                   "instant": true,
                   "refId": "A"
-                },
-                {
-                  "expr": "sum(kube_pod_container_resource_requests{namespace=\"$namespace\", pod=\"$pod\", resource=\"cpu\"})",
-                  "format": "table",
-                  "instant": true,
-                  "legendFormat": "CPU Request",
-                  "refId": "B"
-                },
-                {
-                  "expr": "sum(kube_pod_container_resource_limits{namespace=\"$namespace\", pod=\"$pod\", resource=\"cpu\"})",
-                  "format": "table",
-                  "instant": true,
-                  "legendFormat": "CPU Limit",
-                  "refId": "C"
-                },
-                {
-                  "expr": "sum(kube_pod_container_resource_requests{namespace=\"$namespace\", pod=\"$pod\", resource=\"memory\"})",
-                  "format": "table",
-                  "instant": true,
-                  "legendFormat": "Memory Request",
-                  "refId": "D"
-                },
-                {
-                  "expr": "sum(kube_pod_container_resource_limits{namespace=\"$namespace\", pod=\"$pod\", resource=\"memory\"})",
-                  "format": "table",
-                  "instant": true,
-                  "legendFormat": "Memory Limit",
-                  "refId": "E"
-                },
-                {
-                  "expr": "kube_pod_status_phase{namespace=\"$namespace\", pod=\"$pod\"}",
-                  "format": "table",
-                  "instant": true,
-                  "refId": "F"
-                },
-                {
-                  "expr": "kube_pod_status_ready{namespace=\"$namespace\", pod=\"$pod\"}",
-                  "format": "table",
-                  "instant": true,
-                  "refId": "G"
-                },
-                {
-                  "expr": "sum(increase(kube_pod_container_status_restarts_total{namespace=\"$namespace\", pod=\"$pod\"}[1h]))",
-                  "format": "table",
-                  "instant": true,
-                  "legendFormat": "Restarts",
-                  "refId": "H"
                 }
               ],
               "title": "Pod Info",
@@ -405,20 +355,29 @@ dashboards:
                       "instance": true,
                       "uid": true,
                       "pod_name": true,
-                      "namespace": true
+                      "namespace": true,
+                      "service": true,
+                      "app_kubernetes_io_component": true,
+                      "app_kubernetes_io_instance": true,
+                      "app_kubernetes_io_managed_by": true,
+                      "app_kubernetes_io_name": true,
+                      "app_kubernetes_io_part_of": true,
+                      "app_kubernetes_io_version": true,
+                      "helm_sh_chart": true,
+                      "created_by_kind": true,
+                      "created_by_name": true
                     },
-                    "indexByName": {}
-                  }
-                },
-                {
-                  "id": "formatString",
-                  "options": {
-                    "format": "Pod: ${pod}\nNode: ${node}\nPhase: ${phase}\nReady: ${condition}\nRestarts: ${H}\nCPU: ${B} / ${C}\nMemory: ${D} / ${E}",
-                    "mode": "json"
+                    "indexByName": {
+                      "pod": 0,
+                      "node": 1,
+                      "pod_ip": 2,
+                      "host_ip": 3,
+                      "host_network": 4
+                    }
                   }
                 }
               ],
-              "type": "stat"
+              "type": "table"
             },
             {
               "datasource": {
@@ -496,9 +455,9 @@ dashboards:
               "pluginVersion": "10.0.0",
               "targets": [
                 {
-                  "expr": "increase(kube_pod_container_status_restarts_total{namespace=\"$namespace\", pod=\"$pod\"}[5m])",
+                  "expr": "increase(kube_pod_container_status_restarts_total{namespace=\"$namespace\", pod=\"$pod\"}[1m])",
                   "format": "time_series",
-                  "interval": "",
+                  "interval": "1m",
                   "legendFormat": "{{container}}",
                   "refId": "A"
                 }
