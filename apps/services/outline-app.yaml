@@ -164,7 +164,7 @@ spec:
           data:
             enabled: true
             type: hostPath
-            hostPath: /var/lib/colima/mnt/mac/Users/matthewschwartz/outline
+            hostPath: /Users/matthewschwartz/outline
             advancedMounts:
               main:
                 main:
@@ -172,7 +172,7 @@ spec:
           postgres-data:
             enabled: true
             type: hostPath
-            hostPath: /var/lib/colima/mnt/mac/Users/matthewschwartz/outline/postgres
+            hostPath: /Users/matthewschwartz/outline/postgres
             advancedMounts:
               postgres:
                 main:
