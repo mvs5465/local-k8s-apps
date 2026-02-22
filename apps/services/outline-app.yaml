@@ -53,7 +53,7 @@ spec:
                     value: "redis://outline-redis:6379"
                   # Collaboration URL (required by Outline for real-time collaboration)
                   - name: COLLABORATION_URL
-                    value: "http://outline-main:3000"
+                    value:  "http://outline.lan"
                   # Disable HTTPS redirect for internal cluster access
                   - name: FORCE_HTTPS
                     value: "false"
