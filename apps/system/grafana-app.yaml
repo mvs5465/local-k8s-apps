@@ -880,7 +880,7 @@ spec:
                       "gridPos": {
                         "h": 8,
                         "w": 12,
-                        "x": 0,
+                        "x": 12,
                         "y": 0
                       },
                       "id": 1,
@@ -966,8 +966,8 @@ spec:
                       "gridPos": {
                         "h": 8,
                         "w": 12,
-                        "x": 12,
-                        "y": 0
+                        "x": 0,
+                        "y": 8
                       },
                       "id": 2,
                       "options": {
@@ -1052,7 +1052,7 @@ spec:
                       "gridPos": {
                         "h": 8,
                         "w": 12,
-                        "x": 0,
+                        "x": 12,
                         "y": 8
                       },
                       "id": 4,
@@ -1095,6 +1095,17 @@ spec:
                       },
                       "fieldConfig": {
                         "defaults": {
+                          "color": {
+                            "mode": "thresholds"
+                          },
+                          "custom": {
+                            "align": "auto",
+                            "cellOptions": {
+                              "type": "auto"
+                            },
+                            "inspect": false,
+                            "sortBy": []
+                          },
                           "mappings": [],
                           "thresholds": {
                             "mode": "absolute",
@@ -1102,219 +1113,182 @@ spec:
                               {
                                 "color": "green",
                                 "value": null
-                              },
+                              }
+                            ]
+                          }
+                        },
+                        "overrides": [
+                          {
+                            "matcher": {
+                              "id": "byName",
+                              "options": "CPU Request"
+                            },
+                            "properties": [
                               {
-                                "color": "red",
-                                "value": 1
+                                "id": "unit",
+                                "value": "short"
                               }
                             ]
                           },
-                          "unit": "short"
-                        },
-                        "overrides": []
+                          {
+                            "matcher": {
+                              "id": "byName",
+                              "options": "CPU Limit"
+                            },
+                            "properties": [
+                              {
+                                "id": "unit",
+                                "value": "short"
+                              }
+                            ]
+                          },
+                          {
+                            "matcher": {
+                              "id": "byName",
+                              "options": "Memory Request"
+                            },
+                            "properties": [
+                              {
+                                "id": "unit",
+                                "value": "bytes"
+                              }
+                            ]
+                          },
+                          {
+                            "matcher": {
+                              "id": "byName",
+                              "options": "Memory Limit"
+                            },
+                            "properties": [
+                              {
+                                "id": "unit",
+                                "value": "bytes"
+                              }
+                            ]
+                          },
+                          {
+                            "matcher": {
+                              "id": "byName",
+                              "options": "Restarts (1h)"
+                            },
+                            "properties": [
+                              {
+                                "id": "unit",
+                                "value": "short"
+                              },
+                              {
+                                "id": "color",
+                                "value": {
+                                  "mode": "thresholds"
+                                }
+                              }
+                            ]
+                          }
+                        ]
                       },
                       "gridPos": {
-                        "h": 4,
-                        "w": 6,
+                        "h": 8,
+                        "w": 12,
                         "x": 0,
-                        "y": 16
+                        "y": 0
                       },
                       "id": 5,
                       "options": {
-                        "colorMode": "background",
-                        "graphMode": "none",
-                        "justifyMode": "auto",
-                        "orientation": "auto",
-                        "reduceOptions": {
-                          "values": false,
+                        "footer": {
+                          "countRows": false,
                           "fields": "",
-                          "calcs": [
-                            "lastNotNull"
-                          ]
+                          "reducer": [
+                            "sum"
+                          ],
+                          "show": false
                         },
-                        "text": {},
-                        "textMode": "auto"
+                        "showHeader": true,
+                        "sortBy": []
                       },
                       "pluginVersion": "10.0.0",
                       "targets": [
                         {
-                          "expr": "increase(kube_pod_container_status_restarts_total{namespace=\"$namespace\", pod=\"$pod\"}[1h])",
-                          "format": "time_series",
-                          "interval": "",
-                          "legendFormat": "{{container}}",
+                          "expr": "kube_pod_info{namespace=\"$namespace\", pod=\"$pod\"}",
+                          "format": "table",
+                          "instant": true,
                           "refId": "A"
-                        }
-                      ],
-                      "title": "Restarts (1h)",
-                      "type": "stat"
-                    },
-                    {
-                      "datasource": {
-                        "type": "prometheus",
-                        "uid": "PBFA97CFB590B2093"
-                      },
-                      "fieldConfig": {
-                        "defaults": {
-                          "mappings": [],
-                          "thresholds": {
-                            "mode": "absolute",
-                            "steps": [
-                              {
-                                "color": "green",
-                                "value": null
-                              }
-                            ]
-                          },
-                          "unit": "short"
                         },
-                        "overrides": []
-                      },
-                      "gridPos": {
-                        "h": 4,
-                        "w": 6,
-                        "x": 6,
-                        "y": 16
-                      },
-                      "id": 6,
-                      "options": {
-                        "colorMode": "background",
-                        "graphMode": "none",
-                        "justifyMode": "auto",
-                        "orientation": "auto",
-                        "reduceOptions": {
-                          "values": false,
-                          "fields": "",
-                          "calcs": [
-                            "lastNotNull"
-                          ]
-                        },
-                        "text": {},
-                        "textMode": "auto"
-                      },
-                      "pluginVersion": "10.0.0",
-                      "targets": [
                         {
                           "expr": "sum(kube_pod_container_resource_requests{namespace=\"$namespace\", pod=\"$pod\", resource=\"cpu\"})",
-                          "format": "time_series",
-                          "interval": "",
+                          "format": "table",
+                          "instant": true,
                           "legendFormat": "CPU Request",
-                          "refId": "A"
-                        }
-                      ],
-                      "title": "CPU Request",
-                      "type": "stat"
-                    },
-                    {
-                      "datasource": {
-                        "type": "prometheus",
-                        "uid": "PBFA97CFB590B2093"
-                      },
-                      "fieldConfig": {
-                        "defaults": {
-                          "mappings": [],
-                          "thresholds": {
-                            "mode": "absolute",
-                            "steps": [
-                              {
-                                "color": "green",
-                                "value": null
-                              }
-                            ]
-                          },
-                          "unit": "bytes"
+                          "refId": "B"
                         },
-                        "overrides": []
-                      },
-                      "gridPos": {
-                        "h": 4,
-                        "w": 6,
-                        "x": 12,
-                        "y": 16
-                      },
-                      "id": 7,
-                      "options": {
-                        "colorMode": "background",
-                        "graphMode": "none",
-                        "justifyMode": "auto",
-                        "orientation": "auto",
-                        "reduceOptions": {
-                          "values": false,
-                          "fields": "",
-                          "calcs": [
-                            "lastNotNull"
-                          ]
-                        },
-                        "text": {},
-                        "textMode": "auto"
-                      },
-                      "pluginVersion": "10.0.0",
-                      "targets": [
-                        {
-                          "expr": "sum(kube_pod_container_resource_requests{namespace=\"$namespace\", pod=\"$pod\", resource=\"memory\"})",
-                          "format": "time_series",
-                          "interval": "",
-                          "legendFormat": "Memory Request",
-                          "refId": "A"
-                        }
-                      ],
-                      "title": "Memory Request",
-                      "type": "stat"
-                    },
-                    {
-                      "datasource": {
-                        "type": "prometheus",
-                        "uid": "PBFA97CFB590B2093"
-                      },
-                      "fieldConfig": {
-                        "defaults": {
-                          "mappings": [],
-                          "thresholds": {
-                            "mode": "absolute",
-                            "steps": [
-                              {
-                                "color": "green",
-                                "value": null
-                              }
-                            ]
-                          },
-                          "unit": "short"
-                        },
-                        "overrides": []
-                      },
-                      "gridPos": {
-                        "h": 4,
-                        "w": 6,
-                        "x": 18,
-                        "y": 16
-                      },
-                      "id": 8,
-                      "options": {
-                        "colorMode": "background",
-                        "graphMode": "none",
-                        "justifyMode": "auto",
-                        "orientation": "auto",
-                        "reduceOptions": {
-                          "values": false,
-                          "fields": "",
-                          "calcs": [
-                            "lastNotNull"
-                          ]
-                        },
-                        "text": {},
-                        "textMode": "auto"
-                      },
-                      "pluginVersion": "10.0.0",
-                      "targets": [
                         {
                           "expr": "sum(kube_pod_container_resource_limits{namespace=\"$namespace\", pod=\"$pod\", resource=\"cpu\"})",
-                          "format": "time_series",
-                          "interval": "",
+                          "format": "table",
+                          "instant": true,
                           "legendFormat": "CPU Limit",
-                          "refId": "A"
+                          "refId": "C"
+                        },
+                        {
+                          "expr": "sum(kube_pod_container_resource_requests{namespace=\"$namespace\", pod=\"$pod\", resource=\"memory\"})",
+                          "format": "table",
+                          "instant": true,
+                          "legendFormat": "Memory Request",
+                          "refId": "D"
+                        },
+                        {
+                          "expr": "sum(kube_pod_container_resource_limits{namespace=\"$namespace\", pod=\"$pod\", resource=\"memory\"})",
+                          "format": "table",
+                          "instant": true,
+                          "legendFormat": "Memory Limit",
+                          "refId": "E"
+                        },
+                        {
+                          "expr": "sum(increase(kube_pod_container_status_restarts_total{namespace=\"$namespace\", pod=\"$pod\"}[1h]))",
+                          "format": "table",
+                          "instant": true,
+                          "legendFormat": "Restarts (1h)",
+                          "refId": "F"
                         }
                       ],
-                      "title": "CPU Limit",
-                      "type": "stat"
+                      "title": "Pod Info",
+                      "transformations": [
+                        {
+                          "id": "organize",
+                          "options": {
+                            "excludeByName": {
+                              "__name__": true,
+                              "Time": true,
+                              "Value": false,
+                              "job": true,
+                              "instance": true,
+                              "pod_ip": true,
+                              "host_ip": true,
+                              "uid": true
+                            },
+                            "indexByName": {
+                              "pod": 0,
+                              "namespace": 1,
+                              "pod_name": 2,
+                              "B": 3,
+                              "C": 4,
+                              "D": 5,
+                              "E": 6,
+                              "F": 7
+                            },
+                            "renameByName": {
+                              "B": "CPU Request",
+                              "C": "CPU Limit",
+                              "D": "Memory Request",
+                              "E": "Memory Limit",
+                              "F": "Restarts (1h)",
+                              "pod": "Pod",
+                              "namespace": "Namespace",
+                              "pod_name": "Pod Name",
+                              "node": "Node"
+                            }
+                          }
+                        }
+                      ],
+                      "type": "table"
                     },
                     {
                       "datasource": {
@@ -1325,7 +1299,7 @@ spec:
                         "h": 8,
                         "w": 24,
                         "x": 0,
-                        "y": 20
+                        "y": 16
                       },
                       "id": 9,
                       "options": {
