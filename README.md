@@ -15,6 +15,7 @@ ArgoCD Application definitions for system and user-facing services. Pair with [`
 - **Homepage**: Service dashboard with live k8s cluster widget
 - **Gatus**: Uptime monitoring and status page
 - **Jellyfin**: Media server
+- **Outline**: Personal wiki with real-time collaboration
 
 ## Structure
 
@@ -31,7 +32,8 @@ apps/
 └── services/
     ├── homepage-app.yaml
     ├── gatus-app.yaml
-    └── jellyfin-app.yaml
+    ├── jellyfin-app.yaml
+    └── outline-app.yaml
 
 manifests/
 ├── prometheus/
@@ -41,7 +43,8 @@ manifests/
 ├── nginx-ingress/
 ├── homepage/
 ├── gatus/
-└── jellyfin/
+├── jellyfin/
+└── outline/
 ```
 
 ## Adding Apps
