@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: ollama-pull-phi2
+  name: ollama-pull-llama3.2
   namespace: ai
 spec:
   ttlSecondsAfterFinished: 3600
@@ -14,4 +14,4 @@ spec:
           env:
             - name: OLLAMA_HOST
               value: http://ollama.ai.svc.cluster.local:11434
-          command: ["sh", "-lc", "ollama pull phi"]
+          command: ["sh", "-lc", "ollama pull llama3.2:3b"]
