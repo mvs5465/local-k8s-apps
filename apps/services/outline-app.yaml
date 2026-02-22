@@ -81,13 +81,14 @@ spec:
 
           postgres:
             type: statefulset
+            pod:
+              securityContext:
+                fsGroup: 999
             containers:
               main:
                 image:
                   repository: postgres
                   tag: "16-alpine"
-                securityContext:
-                  runAsUser: 0
                 env:
                   - name: POSTGRES_USER
                     value: "outline"
