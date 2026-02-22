@@ -83,8 +83,8 @@ dashboards:
               "gridPos": {
                 "h": 8,
                 "w": 12,
-                "x": 12,
-                "y": 0
+                "x": 0,
+                "y": 4
               },
               "id": 1,
               "options": {
@@ -169,8 +169,8 @@ dashboards:
               "gridPos": {
                 "h": 8,
                 "w": 12,
-                "x": 0,
-                "y": 8
+                "x": 12,
+                "y": 4
               },
               "id": 2,
               "options": {
@@ -255,8 +255,8 @@ dashboards:
               "gridPos": {
                 "h": 8,
                 "w": 12,
-                "x": 12,
-                "y": 8
+                "x": 0,
+                "y": 12
               },
               "id": 4,
               "options": {
@@ -315,8 +315,8 @@ dashboards:
                 "overrides": []
               },
               "gridPos": {
-                "h": 8,
-                "w": 12,
+                "h": 4,
+                "w": 24,
                 "x": 0,
                 "y": 0
               },
@@ -422,6 +422,92 @@ dashboards:
             },
             {
               "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "Restarts",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "drawStyle": "bars",
+                    "fillOpacity": 100,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "tooltip": false,
+                      "viz": false,
+                      "legend": false
+                    },
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "spanNulls": true,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": null
+                      }
+                    ]
+                  },
+                  "unit": "short"
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 8,
+                "w": 12,
+                "x": 12,
+                "y": 12
+              },
+              "id": 10,
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              },
+              "pluginVersion": "10.0.0",
+              "targets": [
+                {
+                  "expr": "increase(kube_pod_container_status_restarts_total{namespace=\"$namespace\", pod=\"$pod\"}[5m])",
+                  "format": "time_series",
+                  "interval": "",
+                  "legendFormat": "{{container}}",
+                  "refId": "A"
+                }
+              ],
+              "title": "Pod Restarts",
+              "type": "timeseries"
+            },
+            {
+              "datasource": {
                 "type": "loki",
                 "uid": "P8E80F9AEF21F6940"
               },
@@ -429,7 +515,7 @@ dashboards:
                 "h": 8,
                 "w": 24,
                 "x": 0,
-                "y": 16
+                "y": 20
               },
               "id": 9,
               "options": {
