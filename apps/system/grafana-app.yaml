@@ -16,11 +16,11 @@ spec:
       helm:
         releaseName: grafana
         valueFiles:
-          - $values/helm/grafana/values.yaml
-          - $values/helm/grafana/dashboards/cluster-overview.yaml
-          - $values/helm/grafana/dashboards/loki-metrics.yaml
-          - $values/helm/grafana/dashboards/pod-metrics.yaml
-          - $values/helm/grafana/dashboards/argocd-overview.yaml
+          - $values/values/grafana/values.yaml
+          - $values/values/grafana/dashboards/cluster-overview.yaml
+          - $values/values/grafana/dashboards/loki-metrics.yaml
+          - $values/values/grafana/dashboards/pod-metrics.yaml
+          - $values/values/grafana/dashboards/argocd-overview.yaml
 
   destination:
     server: https://kubernetes.default.svc
