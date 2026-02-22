@@ -16,8 +16,7 @@ spec:
       values: |
         ollama:
           models:
-            pull:
-              - phi:2
+            pull: []
 
         resources:
           requests:
@@ -37,7 +36,8 @@ spec:
                   pathType: Prefix
 
         persistentVolume:
-          enabled: false
+          enabled: true
+          size: 10Gi
 
         gpu:
           enabled: false

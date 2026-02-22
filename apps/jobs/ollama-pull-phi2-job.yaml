@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: ollama-pull-phi2
+  namespace: ai
+spec:
+  ttlSecondsAfterFinished: 3600
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: pull
+          image: ollama/ollama:0.16.2
+          env:
+            - name: OLLAMA_HOST
+              value: http://ollama.ai.svc.cluster.local:11434
+          command: ["sh", "-lc", "ollama pull phi:2"]
