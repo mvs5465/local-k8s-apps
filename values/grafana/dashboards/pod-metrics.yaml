@@ -298,86 +298,214 @@ dashboards:
               },
               "fieldConfig": {
                 "defaults": {
-                  "color": {
-                    "mode": "thresholds"
-                  },
+                  "color": { "mode": "fixed", "fixedColor": "text" },
                   "mappings": [],
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "color": "green",
-                        "value": null
-                      }
-                    ]
-                  }
+                  "thresholds": { "mode": "absolute", "steps": [{ "color": "green", "value": null }] },
+                  "unit": "dateTimeAsUs"
                 },
                 "overrides": []
               },
-              "gridPos": {
-                "h": 4,
-                "w": 24,
-                "x": 0,
-                "y": 0
-              },
+              "gridPos": { "h": 4, "w": 4, "x": 0, "y": 0 },
               "id": 5,
               "options": {
-                "footer": {
-                  "countRows": false,
-                  "fields": "",
-                  "reducer": [
-                    "sum"
-                  ],
-                  "show": false
-                },
-                "showHeader": true,
-                "sortBy": []
+                "colorMode": "none",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false },
+                "textMode": "value"
               },
               "pluginVersion": "10.0.0",
               "targets": [
                 {
-                  "expr": "kube_pod_info{namespace=\"$namespace\", pod=\"$pod\"}",
+                  "expr": "kube_pod_created{namespace=\"$namespace\", pod=\"$pod\"} * 1000",
+                  "instant": true,
+                  "refId": "A"
+                }
+              ],
+              "title": "Created",
+              "type": "stat"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "color": { "mode": "fixed", "fixedColor": "text" },
+                  "mappings": [],
+                  "thresholds": { "mode": "absolute", "steps": [{ "color": "green", "value": null }] }
+                },
+                "overrides": []
+              },
+              "gridPos": { "h": 4, "w": 5, "x": 4, "y": 0 },
+              "id": 11,
+              "options": {
+                "colorMode": "none",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": { "calcs": ["lastNotNull"], "fields": "/^image$/", "values": false },
+                "textMode": "value"
+              },
+              "pluginVersion": "10.0.0",
+              "targets": [
+                {
+                  "expr": "kube_pod_container_info{namespace=\"$namespace\", pod=\"$pod\"}",
                   "format": "table",
                   "instant": true,
                   "refId": "A"
                 }
               ],
-              "title": "Pod Info",
-              "transformations": [
+              "title": "Image",
+              "type": "stat"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "color": { "mode": "fixed", "fixedColor": "text" },
+                  "mappings": [],
+                  "thresholds": { "mode": "absolute", "steps": [{ "color": "green", "value": null }] }
+                },
+                "overrides": []
+              },
+              "gridPos": { "h": 4, "w": 4, "x": 9, "y": 0 },
+              "id": 12,
+              "options": {
+                "colorMode": "none",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": { "calcs": ["lastNotNull"], "fields": "/^phase$/", "values": false },
+                "textMode": "value"
+              },
+              "pluginVersion": "10.0.0",
+              "targets": [
                 {
-                  "id": "organize",
-                  "options": {
-                    "excludeByName": {
-                      "__name__": true,
-                      "Time": true,
-                      "Value": true,
-                      "job": true,
-                      "instance": true,
-                      "uid": true,
-                      "pod_name": true,
-                      "namespace": true,
-                      "service": true,
-                      "app_kubernetes_io_component": true,
-                      "app_kubernetes_io_instance": true,
-                      "app_kubernetes_io_managed_by": true,
-                      "app_kubernetes_io_name": true,
-                      "app_kubernetes_io_part_of": true,
-                      "app_kubernetes_io_version": true,
-                      "helm_sh_chart": true,
-                      "created_by_kind": true,
-                      "created_by_name": true
-                    },
-                    "indexByName": {
-                      "pod": 0,
-                      "node": 1,
-                      "pod_ip": 2,
-                      "host_ip": 3,
-                      "host_network": 4
-                    }
-                  }
+                  "expr": "kube_pod_status_phase{namespace=\"$namespace\", pod=\"$pod\"} == 1",
+                  "format": "table",
+                  "instant": true,
+                  "refId": "A"
                 }
               ],
-              "type": "table"
+              "title": "Phase",
+              "type": "stat"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "color": { "mode": "fixed", "fixedColor": "text" },
+                  "mappings": [],
+                  "thresholds": { "mode": "absolute", "steps": [{ "color": "green", "value": null }] }
+                },
+                "overrides": []
+              },
+              "gridPos": { "h": 4, "w": 4, "x": 13, "y": 0 },
+              "id": 13,
+              "options": {
+                "colorMode": "none",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": { "calcs": ["lastNotNull"], "fields": "/^condition$/", "values": false },
+                "textMode": "value"
+              },
+              "pluginVersion": "10.0.0",
+              "targets": [
+                {
+                  "expr": "kube_pod_status_ready{namespace=\"$namespace\", pod=\"$pod\"} == 1",
+                  "format": "table",
+                  "instant": true,
+                  "refId": "A"
+                }
+              ],
+              "title": "Ready",
+              "type": "stat"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "color": { "mode": "thresholds" },
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      { "color": "green", "value": null },
+                      { "color": "yellow", "value": 1 },
+                      { "color": "red", "value": 5 }
+                    ]
+                  }
+                },
+                "overrides": []
+              },
+              "gridPos": { "h": 4, "w": 3, "x": 17, "y": 0 },
+              "id": 14,
+              "options": {
+                "colorMode": "background",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false },
+                "textMode": "value"
+              },
+              "pluginVersion": "10.0.0",
+              "targets": [
+                {
+                  "expr": "sum(kube_pod_container_status_restarts_total{namespace=\"$namespace\", pod=\"$pod\"})",
+                  "instant": true,
+                  "refId": "A"
+                }
+              ],
+              "title": "Restarts",
+              "type": "stat"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "color": { "mode": "fixed", "fixedColor": "text" },
+                  "mappings": [],
+                  "thresholds": { "mode": "absolute", "steps": [{ "color": "green", "value": null }] }
+                },
+                "overrides": []
+              },
+              "gridPos": { "h": 4, "w": 4, "x": 20, "y": 0 },
+              "id": 15,
+              "options": {
+                "colorMode": "none",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": { "calcs": ["lastNotNull"], "fields": "/^reason$/", "values": false },
+                "textMode": "value"
+              },
+              "pluginVersion": "10.0.0",
+              "targets": [
+                {
+                  "expr": "kube_pod_container_status_last_terminated_reason{namespace=\"$namespace\", pod=\"$pod\"}",
+                  "format": "table",
+                  "instant": true,
+                  "refId": "A"
+                }
+              ],
+              "title": "Last Exit Reason",
+              "type": "stat"
             },
             {
               "datasource": {
