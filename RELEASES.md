@@ -2,6 +2,22 @@
 
 ## [Unreleased]
 
+## [v1.3.0] - 2026-02-22 - ArgoCD Metrics & Observability
+
+### Added
+- **Prometheus Operator CRDs** — installs monitoring.coreos.com CRDs for ServiceMonitor support
+- **ArgoCD Metrics Scraping** — static Prometheus scrape job for all 4 ArgoCD components
+- **ArgoCD ServiceMonitors** — ServiceMonitor resources for ArgoCD metrics discovery
+- **ArgoCD Overview Grafana Dashboard** — 9 panels covering sync status, reconcile duration, git requests, redis usage
+- Sync waves at app-of-apps level (system: wave 0, services: wave 1) for correct CRD ordering
+- nginx-ingress set to sync-wave -1 for highest priority deployment
+
+### Fixed
+- ServiceMonitors moved from system to services app to deploy after CRDs exist
+- prometheus-operator-crds uses ServerSideApply to handle large CRD annotations
+- Grafana out-of-sync/unhealthy panels now show 0 instead of no data
+- Removed Log Levels panel from Loki dashboard
+
 ## [v1.2.0] - 2026-02-21 - Outline Wiki Stable Release
 
 ### Added
