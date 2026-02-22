@@ -51,9 +51,11 @@ spec:
                 - local-k8s-argocd:
                     - abbr: CD
                       href: https://github.com/mvs5465/local-k8s-argocd
+                      description: Infrastructure repo
                 - local-k8s-apps:
                     - abbr: AP
                       href: https://github.com/mvs5465/local-k8s-apps
+                      description: Applications repo
 
           services:
             - Infrastructure:
