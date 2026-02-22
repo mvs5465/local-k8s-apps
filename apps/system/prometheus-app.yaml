@@ -50,10 +50,10 @@ spec:
           - job_name: argocd
             static_configs:
             - targets:
-              - argocd-application-controller.argocd.svc.cluster.local:8082
-              - argocd-applicationset-controller.argocd.svc.cluster.local:8080
-              - argocd-repo-server.argocd.svc.cluster.local:8084
-              - argocd-server.argocd.svc.cluster.local:8083
+              - argocd-application-controller-metrics.argocd.svc.cluster.local:8082
+              - argocd-applicationset-controller-metrics.argocd.svc.cluster.local:8080
+              - argocd-repo-server-metrics.argocd.svc.cluster.local:8084
+              - argocd-server-metrics.argocd.svc.cluster.local:8083
 
   destination:
     server: https://kubernetes.default.svc
