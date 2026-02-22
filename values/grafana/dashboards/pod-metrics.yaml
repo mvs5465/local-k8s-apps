@@ -301,14 +301,6 @@ dashboards:
                   "color": {
                     "mode": "thresholds"
                   },
-                  "custom": {
-                    "align": "left",
-                    "cellOptions": {
-                      "type": "auto"
-                    },
-                    "inspect": false,
-                    "sortBy": []
-                  },
                   "mappings": [],
                   "thresholds": {
                     "mode": "absolute",
@@ -320,32 +312,7 @@ dashboards:
                     ]
                   }
                 },
-                "overrides": [
-                  {
-                    "matcher": {
-                      "id": "byName",
-                      "options": "Value"
-                    },
-                    "properties": [
-                      {
-                        "id": "custom.hidden",
-                        "value": true
-                      }
-                    ]
-                  },
-                  {
-                    "matcher": {
-                      "id": "byName",
-                      "options": "Time"
-                    },
-                    "properties": [
-                      {
-                        "id": "custom.hidden",
-                        "value": true
-                      }
-                    ]
-                  }
-                ]
+                "overrides": []
               },
               "gridPos": {
                 "h": 8,
@@ -355,16 +322,19 @@ dashboards:
               },
               "id": 5,
               "options": {
-                "footer": {
-                  "countRows": false,
+                "colorMode": "background",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                  "values": false,
                   "fields": "",
-                  "reducer": [
-                    "sum"
-                  ],
-                  "show": false
+                  "calcs": [
+                    "lastNotNull"
+                  ]
                 },
-                "showHeader": true,
-                "sortBy": []
+                "text": {},
+                "textMode": "auto"
               },
               "pluginVersion": "10.0.0",
               "targets": [
@@ -373,6 +343,53 @@ dashboards:
                   "format": "table",
                   "instant": true,
                   "refId": "A"
+                },
+                {
+                  "expr": "sum(kube_pod_container_resource_requests{namespace=\"$namespace\", pod=\"$pod\", resource=\"cpu\"})",
+                  "format": "table",
+                  "instant": true,
+                  "legendFormat": "CPU Request",
+                  "refId": "B"
+                },
+                {
+                  "expr": "sum(kube_pod_container_resource_limits{namespace=\"$namespace\", pod=\"$pod\", resource=\"cpu\"})",
+                  "format": "table",
+                  "instant": true,
+                  "legendFormat": "CPU Limit",
+                  "refId": "C"
+                },
+                {
+                  "expr": "sum(kube_pod_container_resource_requests{namespace=\"$namespace\", pod=\"$pod\", resource=\"memory\"})",
+                  "format": "table",
+                  "instant": true,
+                  "legendFormat": "Memory Request",
+                  "refId": "D"
+                },
+                {
+                  "expr": "sum(kube_pod_container_resource_limits{namespace=\"$namespace\", pod=\"$pod\", resource=\"memory\"})",
+                  "format": "table",
+                  "instant": true,
+                  "legendFormat": "Memory Limit",
+                  "refId": "E"
+                },
+                {
+                  "expr": "kube_pod_status_phase{namespace=\"$namespace\", pod=\"$pod\"}",
+                  "format": "table",
+                  "instant": true,
+                  "refId": "F"
+                },
+                {
+                  "expr": "kube_pod_status_ready{namespace=\"$namespace\", pod=\"$pod\"}",
+                  "format": "table",
+                  "instant": true,
+                  "refId": "G"
+                },
+                {
+                  "expr": "sum(increase(kube_pod_container_status_restarts_total{namespace=\"$namespace\", pod=\"$pod\"}[1h]))",
+                  "format": "table",
+                  "instant": true,
+                  "legendFormat": "Restarts",
+                  "refId": "H"
                 }
               ],
               "title": "Pod Info",
@@ -386,25 +403,22 @@ dashboards:
                       "Value": true,
                       "job": true,
                       "instance": true,
-                      "pod_ip": true,
-                      "host_ip": true,
                       "uid": true,
-                      "pod_name": true
+                      "pod_name": true,
+                      "namespace": true
                     },
-                    "indexByName": {
-                      "pod": 0,
-                      "namespace": 1,
-                      "node": 2
-                    },
-                    "renameByName": {
-                      "pod": "Pod",
-                      "namespace": "Namespace",
-                      "node": "Node"
-                    }
+                    "indexByName": {}
+                  }
+                },
+                {
+                  "id": "formatString",
+                  "options": {
+                    "format": "Pod: ${pod}\nNode: ${node}\nPhase: ${phase}\nReady: ${condition}\nRestarts: ${H}\nCPU: ${B} / ${C}\nMemory: ${D} / ${E}",
+                    "mode": "json"
                   }
                 }
               ],
-              "type": "table"
+              "type": "stat"
             },
             {
               "datasource": {
