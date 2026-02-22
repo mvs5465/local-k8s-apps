@@ -63,6 +63,11 @@ spec:
                     href: https://argocd.lan
                     description: GitOps continuous deployment
                     icon: argo-cd.png
+            - AI:
+                - Chat:
+                    href: http://chat.lan
+                    description: Open WebUI chat interface
+                    icon: openwebui.png
             - Monitoring:
                 - Grafana:
                     href: http://grafana.lan
