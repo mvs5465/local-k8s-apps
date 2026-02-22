@@ -2,15 +2,29 @@
 
 ## [Unreleased]
 
+## [v1.2.0] - 2026-02-21 - Outline Wiki Stable Release
+
 ### Added
 - **Outline Wiki** — Stable personal wiki with real-time collaboration support
   - PostgreSQL persistence via hostPath volumes in ~/outline/postgres
-  - Redis for real-time collaboration sessions
-  - Integrated into Gatus uptime monitoring
-  - Added to Homepage service dashboard
+  - Redis for real-time collaboration sessions and performance
+  - Integrated into Gatus uptime monitoring dashboard
+  - Added to Homepage service discovery widget
+  - Data persists through Colima VM restarts
+
+### Fixed
+- Outline PostgreSQL hostPath permissions via fsGroup (500)
+- Outline memory tuning with NODE_OPTIONS for stable startup
+- Outline FORCE_HTTPS disabled for Kubernetes health checks
+- Outline service networking with headless PostgreSQL and Redis services
+- Homepage bookmarks configuration structure per spec
+- Grafana dashboard auto-star on load
 
 ### Changed
-- Updated README to reflect Outline as stable service tier app
+- Outline now documented as stable Services Tier application
+- Removed External Secrets Operator (no longer needed after fixes)
+- Homepage bookmarks restructured with GitHub repo links
+- Updated all service manifests to documentation
 
 ## [v1.0.0] - 2026-02-20 - Phase 1 Complete: Custom Dashboards & Monitoring
 
