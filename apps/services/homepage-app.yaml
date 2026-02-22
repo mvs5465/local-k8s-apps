@@ -67,7 +67,7 @@ spec:
                 - Chat:
                     href: http://chat.lan
                     description: Open WebUI chat interface
-                    icon: openwebui.png
+                    icon: chatgpt.png
             - Monitoring:
                 - Grafana:
                     href: http://grafana.lan

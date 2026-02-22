@@ -16,12 +16,13 @@ spec:
       values: |
         ollama:
           models:
-            pull: []
+            pull:
+              - qwen2:0.5b
 
         resources:
           requests:
             cpu: 500m
-            memory: 2.5Gi
+            memory: 512Mi
           limits:
             cpu: 2000m
             memory: 3.5Gi
