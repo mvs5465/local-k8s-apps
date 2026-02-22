@@ -6,6 +6,8 @@ metadata:
   labels:
     app.kubernetes.io/name: argocd
     app.kubernetes.io/instance: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   selector:
     matchLabels:
@@ -23,6 +25,8 @@ metadata:
   labels:
     app.kubernetes.io/name: argocd
     app.kubernetes.io/instance: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   selector:
     matchLabels:
@@ -40,6 +44,8 @@ metadata:
   labels:
     app.kubernetes.io/name: argocd
     app.kubernetes.io/instance: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   selector:
     matchLabels:
@@ -57,6 +63,8 @@ metadata:
   labels:
     app.kubernetes.io/name: argocd
     app.kubernetes.io/instance: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   selector:
     matchLabels:
