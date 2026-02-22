@@ -14,4 +14,4 @@ spec:
           env:
             - name: OLLAMA_HOST
               value: http://ollama.ai.svc.cluster.local:11434
-          command: ["sh", "-lc", "ollama pull phi:2"]
+          command: ["sh", "-lc", "ollama pull phi"]
