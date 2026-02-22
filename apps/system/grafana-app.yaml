@@ -865,7 +865,7 @@ spec:
                       "gridPos": { "h": 4, "w": 6, "x": 12, "y": 0 },
                       "id": 3,
                       "options": { "colorMode": "background", "graphMode": "none", "justifyMode": "auto", "orientation": "auto", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "textMode": "auto" },
-                      "targets": [{ "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" }, "expr": "count(argocd_app_info{sync_status!=\"Synced\"})", "legendFormat": "OutOfSync", "refId": "A" }],
+                      "targets": [{ "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" }, "expr": "count(argocd_app_info{sync_status!=\"Synced\"}) or vector(0)", "legendFormat": "OutOfSync", "refId": "A" }],
                       "title": "Apps Out of Sync",
                       "type": "stat"
                     },
@@ -881,7 +881,7 @@ spec:
                       "gridPos": { "h": 4, "w": 6, "x": 18, "y": 0 },
                       "id": 4,
                       "options": { "colorMode": "background", "graphMode": "none", "justifyMode": "auto", "orientation": "auto", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "textMode": "auto" },
-                      "targets": [{ "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" }, "expr": "count(argocd_app_info{health_status!=\"Healthy\"})", "legendFormat": "Unhealthy", "refId": "A" }],
+                      "targets": [{ "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" }, "expr": "count(argocd_app_info{health_status!=\"Healthy\"}) or vector(0)", "legendFormat": "Unhealthy", "refId": "A" }],
                       "title": "Apps Unhealthy",
                       "type": "stat"
                     },
