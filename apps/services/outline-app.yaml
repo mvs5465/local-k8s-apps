@@ -165,15 +165,14 @@ spec:
           data:
             enabled: true
             type: hostPath
-            hostPath: /Users/matthewschwartz/outline
+            hostPath: /Users/matthewschwartz/outline/files
             advancedMounts:
               main:
                 main:
-                  - path: /data
+                  - path: /data/files
           postgres-data:
             enabled: true
-            type: hostPath
-            hostPath: /Users/matthewschwartz/outline/postgres
+            type: emptyDir
             advancedMounts:
               postgres:
                 main:
