@@ -302,7 +302,7 @@ dashboards:
                     "mode": "thresholds"
                   },
                   "custom": {
-                    "align": "auto",
+                    "align": "left",
                     "cellOptions": {
                       "type": "auto"
                     },
@@ -324,66 +324,24 @@ dashboards:
                   {
                     "matcher": {
                       "id": "byName",
-                      "options": "CPU Request"
+                      "options": "Value"
                     },
                     "properties": [
                       {
-                        "id": "unit",
-                        "value": "short"
+                        "id": "custom.hidden",
+                        "value": true
                       }
                     ]
                   },
                   {
                     "matcher": {
                       "id": "byName",
-                      "options": "CPU Limit"
+                      "options": "Time"
                     },
                     "properties": [
                       {
-                        "id": "unit",
-                        "value": "short"
-                      }
-                    ]
-                  },
-                  {
-                    "matcher": {
-                      "id": "byName",
-                      "options": "Memory Request"
-                    },
-                    "properties": [
-                      {
-                        "id": "unit",
-                        "value": "bytes"
-                      }
-                    ]
-                  },
-                  {
-                    "matcher": {
-                      "id": "byName",
-                      "options": "Memory Limit"
-                    },
-                    "properties": [
-                      {
-                        "id": "unit",
-                        "value": "bytes"
-                      }
-                    ]
-                  },
-                  {
-                    "matcher": {
-                      "id": "byName",
-                      "options": "Restarts (1h)"
-                    },
-                    "properties": [
-                      {
-                        "id": "unit",
-                        "value": "short"
-                      },
-                      {
-                        "id": "color",
-                        "value": {
-                          "mode": "thresholds"
-                        }
+                        "id": "custom.hidden",
+                        "value": true
                       }
                     ]
                   }
@@ -415,41 +373,6 @@ dashboards:
                   "format": "table",
                   "instant": true,
                   "refId": "A"
-                },
-                {
-                  "expr": "sum(kube_pod_container_resource_requests{namespace=\"$namespace\", pod=\"$pod\", resource=\"cpu\"})",
-                  "format": "table",
-                  "instant": true,
-                  "legendFormat": "CPU Request",
-                  "refId": "B"
-                },
-                {
-                  "expr": "sum(kube_pod_container_resource_limits{namespace=\"$namespace\", pod=\"$pod\", resource=\"cpu\"})",
-                  "format": "table",
-                  "instant": true,
-                  "legendFormat": "CPU Limit",
-                  "refId": "C"
-                },
-                {
-                  "expr": "sum(kube_pod_container_resource_requests{namespace=\"$namespace\", pod=\"$pod\", resource=\"memory\"})",
-                  "format": "table",
-                  "instant": true,
-                  "legendFormat": "Memory Request",
-                  "refId": "D"
-                },
-                {
-                  "expr": "sum(kube_pod_container_resource_limits{namespace=\"$namespace\", pod=\"$pod\", resource=\"memory\"})",
-                  "format": "table",
-                  "instant": true,
-                  "legendFormat": "Memory Limit",
-                  "refId": "E"
-                },
-                {
-                  "expr": "sum(increase(kube_pod_container_status_restarts_total{namespace=\"$namespace\", pod=\"$pod\"}[1h]))",
-                  "format": "table",
-                  "instant": true,
-                  "legendFormat": "Restarts (1h)",
-                  "refId": "F"
                 }
               ],
               "title": "Pod Info",
@@ -460,32 +383,22 @@ dashboards:
                     "excludeByName": {
                       "__name__": true,
                       "Time": true,
-                      "Value": false,
+                      "Value": true,
                       "job": true,
                       "instance": true,
                       "pod_ip": true,
                       "host_ip": true,
-                      "uid": true
+                      "uid": true,
+                      "pod_name": true
                     },
                     "indexByName": {
                       "pod": 0,
                       "namespace": 1,
-                      "pod_name": 2,
-                      "B": 3,
-                      "C": 4,
-                      "D": 5,
-                      "E": 6,
-                      "F": 7
+                      "node": 2
                     },
                     "renameByName": {
-                      "B": "CPU Request",
-                      "C": "CPU Limit",
-                      "D": "Memory Request",
-                      "E": "Memory Limit",
-                      "F": "Restarts (1h)",
                       "pod": "Pod",
                       "namespace": "Namespace",
-                      "pod_name": "Pod Name",
                       "node": "Node"
                     }
                   }
