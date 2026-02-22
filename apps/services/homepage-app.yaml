@@ -49,11 +49,11 @@ spec:
           bookmarks:
             - GitHub:
                 - local-k8s-argocd:
-                    - abbr: CD
+                    - abbr: Argo
                       href: https://github.com/mvs5465/local-k8s-argocd
                       description: Infrastructure repo
                 - local-k8s-apps:
-                    - abbr: AP
+                    - abbr: Apps
                       href: https://github.com/mvs5465/local-k8s-apps
                       description: Applications repo
 
