@@ -47,13 +47,13 @@ spec:
 
         config:
           bookmarks:
-            - GitHub Repos:
-                - name: local-k8s-argocd
-                  icon: mdi-github
-                  url: https://github.com/mvs5465/local-k8s-argocd
-                - name: local-k8s-apps
-                  icon: mdi-github
-                  url: https://github.com/mvs5465/local-k8s-apps
+            - GitHub:
+                - local-k8s-argocd:
+                    - abbr: CD
+                      href: https://github.com/mvs5465/local-k8s-argocd
+                - local-k8s-apps:
+                    - abbr: AP
+                      href: https://github.com/mvs5465/local-k8s-apps
 
           services:
             - Infrastructure:
