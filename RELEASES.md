@@ -2,6 +2,16 @@
 
 ## [Unreleased]
 
+### Added
+- **Outline Wiki** — Stable personal wiki with real-time collaboration support
+  - PostgreSQL persistence via hostPath volumes in ~/outline/postgres
+  - Redis for real-time collaboration sessions
+  - Integrated into Gatus uptime monitoring
+  - Added to Homepage service dashboard
+
+### Changed
+- Updated README to reflect Outline as stable service tier app
+
 ## [v1.0.0] - 2026-02-20 - Phase 1 Complete: Custom Dashboards & Monitoring
 
 ### Added
