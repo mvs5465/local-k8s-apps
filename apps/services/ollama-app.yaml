@@ -17,15 +17,15 @@ spec:
         ollama:
           models:
             pull:
-              - qwen2:1.5b
+              - phi:2
 
         resources:
           requests:
             cpu: 500m
-            memory: 1Gi
+            memory: 1.5Gi
           limits:
             cpu: 2000m
-            memory: 2Gi
+            memory: 3Gi
 
         ingress:
           enabled: true
