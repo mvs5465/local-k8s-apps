@@ -2,6 +2,29 @@
 
 ## [Unreleased]
 
+## [v1.4.0] - 2026-02-22 - AI Stack & Documentation Improvements
+
+### Added
+- **Ollama AI Inference** — LLM inference server with qwen2:0.5b model, persistent storage
+- **Open WebUI Chat** — Chat interface connected to Ollama for interactive LLM queries
+- **Pod Metrics Dashboard** — New Grafana dashboard with resource usage drilldown by pod
+- AI namespace (ai) for Ollama and Chat services
+
+### Changed
+- Grafana dashboards refactored into separate value files for better organization
+- Renamed `helm/` directory to `values/` for clarity
+- Improved README with "Apps Included" section featuring icons and organized tables
+- ServiceMonitor moved to dedicated `manifests/servicemonitors/` directory
+
+### Fixed
+- Ollama ingress config removed (uses defaults)
+- Removed fileserver directory and associated app
+- Cluster Overview dashboard panel organization and removed unused network I/O panel
+
+### Removed
+- jobs-app.yaml (no longer needed)
+- fileserver app and manifests
+
 ## [v1.3.0] - 2026-02-22 - ArgoCD Metrics & Observability
 
 ### Added
