@@ -1,0 +1,54 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ollama
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: cluster
+  source:
+    repoURL: https://helm.otwld.com/
+    targetRevision: 1.44.0
+    chart: ollama
+    helm:
+      releaseName: ollama
+      values: |
+        ollama:
+          models:
+            pull:
+              - qwen2:0.5b
+
+        resources:
+          requests:
+            cpu: 500m
+            memory: 512Mi
+          limits:
+            cpu: 2000m
+            memory: 1Gi
+
+        ingress:
+          enabled: true
+          className: nginx
+          hosts:
+            - host: ai.lan
+              paths:
+                - path: /
+                  pathType: Prefix
+
+        persistentVolume:
+          enabled: false
+
+        gpu:
+          enabled: false
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ai
+
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
